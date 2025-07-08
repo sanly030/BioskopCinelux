@@ -37,6 +37,9 @@ public class MenuAdminCtrl {
     @FXML
     protected void btnPromoOnAction() {loadMaster("/cinelux/bioskopcinelux/view/DashboardAdmin/Promo.fxml");}
 
+    @FXML
+    protected void btnFilmOnAction() {loadMaster("/cinelux/bioskopcinelux/view/DashboardAdmin/Film.fxml");}
+
 
     private void loadMaster(String fxmlPage) {
         try {

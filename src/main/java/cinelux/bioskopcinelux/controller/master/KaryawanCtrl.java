@@ -17,12 +17,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.fxml.FXMLLoader;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -61,6 +68,33 @@ public class KaryawanCtrl implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        btnPilihGambar.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
+            );
+
+            File selectedFile = fileChooser.showOpenDialog(btnPilihGambar.getScene().getWindow());
+
+            if (selectedFile != null) {
+                try {
+                    Path destination = Paths.get("src/main/resources/images", selectedFile.getName());
+                    Files.createDirectories(destination.getParent());
+                    Files.copy(selectedFile.toPath(), destination, StandardCopyOption.REPLACE_EXISTING);
+
+                    // Load gambar ke ImageView
+                    Image image = new Image(destination.toUri().toString());
+                    imgPegawai.setImage(image);
+
+                } catch (IOException ex) {
+                    msg.alertWarning("Import gagal: " + ex.getMessage());
+                }
+            }
+        });
+
+
+
         searchExecutor = Executors.newSingleThreadScheduledExecutor();
         txtId.setText(String.valueOf(karyawanImpl.getLastId() + 1));
 
