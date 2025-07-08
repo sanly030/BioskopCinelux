@@ -75,6 +75,7 @@ public class PromoCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         searchExecutor = Executors.newSingleThreadScheduledExecutor();
+
         txtId.setText(String.valueOf(promoImpl.getLastId() + 1));
         // Batasi panjang teks
         txtNama.textProperty().addListener((obs, oldText, newText) -> {
@@ -118,7 +119,6 @@ public class PromoCtrl implements Initializable {
         cmbSortBerdasarkan.getItems().addAll("Nama", "Kategori");
         cmbSortUrutan.getItems().addAll("Menaik", "Menurun");
         cmbSortUrutan.getSelectionModel().select("Menurun");
-
         cmbKategori.getItems().addAll("Pemesanan Menu", "Pemesanan Tiket");
 
         loadDetailsToTable(null, null, null,null,null);
@@ -373,10 +373,7 @@ public class PromoCtrl implements Initializable {
 
         btnUpdate.setVisible(false);
         btnTambah.setVisible(true);
-
     }
-
-
 
 
     @FXML
