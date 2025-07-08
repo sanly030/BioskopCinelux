@@ -88,7 +88,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox layoutX="10.0" layoutY="79.0" prefHeight="69.0" prefWidth="320.0">
+                        <HBox layoutX="10.0" layoutY="79.0" onMouseClicked="#btnFilmOnAction" prefHeight="69.0" prefWidth="320.0">
                            <children>
                               <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                                  <HBox.margin>

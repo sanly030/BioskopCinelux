@@ -4,7 +4,7 @@ import cinelux.bioskopcinelux.controller.list.FilmListCtrl;
 import cinelux.bioskopcinelux.model.Film;
 import cinelux.bioskopcinelux.model.Role;
 import cinelux.bioskopcinelux.service.impl.FilmImpl;
-import cinelux.bioskopcinelux.service.impl.PromoImpl;
+import cinelux.bioskopcinelux.connection.DBConnect;
 import cinelux.bioskopcinelux.util.MessageBox;
 import cinelux.bioskopcinelux.util.OperationResult;
 import javafx.event.ActionEvent;
@@ -16,11 +16,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
@@ -29,27 +36,47 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 public class FilmCtrl implements Initializable {
-    @FXML
-    private Button btnClear, btnFilter, btnPilihGambar, btnSortHapus, btnTambah, btnUpdate, btnUrutan;
-    @FXML
-    private ComboBox<String> cmbFilterStatus, cmbFilterKategori,cmbSortBerdasarkan, cmbSortUrutan, cmbGenre, cmbRating;
-    @FXML
-    private TextField txtId, txtJudul, txtDurasi, txtSearch;
-    @FXML
-    private ImageView imgPoster;
-
-    @FXML
-    private VBox vbRowTable;
+    @FXML private Button btnClear, btnFilter, btnPilihGambar, btnSortHapus, btnTambah, btnUpdate, btnUrutan;
+    @FXML private ComboBox<String> cmbFilterStatus, cmbFilterKategori, cmbSortBerdasarkan, cmbSortUrutan, cmbGenre, cmbRating;
+    @FXML private TextField txtId, txtJudul, txtDurasi, txtSearch;
+    @FXML private ImageView imgPoster;
+    @FXML private VBox vbRowTable;
 
     private ScheduledExecutorService searchExecutor;
     private ScheduledFuture<?> searchTask;
-
+    DBConnect connect = new DBConnect();
     FilmImpl filmImpl = new FilmImpl();
     MessageBox msg = new MessageBox();
     Role user = new Role();
 
+    private String currentPosterFileName = null; // [ADDED] menyimpan nama file gambar yang diinput
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        btnPilihGambar.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
+            );
+
+            File selectedFile = fileChooser.showOpenDialog(btnPilihGambar.getScene().getWindow());
+
+            if (selectedFile != null) {
+                try {
+                    Path destination = Paths.get("src/main/resources/images", selectedFile.getName());
+                    Files.createDirectories(destination.getParent());
+                    Files.copy(selectedFile.toPath(), destination, StandardCopyOption.REPLACE_EXISTING);
+
+                    Image image = new Image(destination.toUri().toString());
+                    imgPoster.setImage(image);
+                    currentPosterFileName = selectedFile.getName(); // [ADDED] simpan nama file gambar
+
+                } catch (IOException ex) {
+                    msg.alertWarning("Import gagal: " + ex.getMessage());
+                }
+            }
+        });
+
         searchExecutor = Executors.newSingleThreadScheduledExecutor();
         txtId.setText(String.valueOf(filmImpl.getLastId() + 1));
 
@@ -60,14 +87,7 @@ public class FilmCtrl implements Initializable {
         cmbSortUrutan.getSelectionModel().select("Menurun");
 
         cmbGenre.getItems().addAll("Aksi", "Drama", "Komedi", "Horror", "Sci-Fi");
-        cmbRating.getItems().addAll(
-                "G - General Audiences",
-                "PG - Parental Guidance Suggested",
-                "PG-13 - Parents Strongly Cautioned",
-                "R - Restricted",
-                "NC-17 - Adults Only"
-        );
-
+        cmbRating.getItems().addAll("SU", "13+", "17+", "21+");
 
         txtSearch.textProperty().addListener((obs, oldVal, newVal) -> delaySearch());
         cmbFilterStatus.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> delaySearch());
@@ -84,17 +104,14 @@ public class FilmCtrl implements Initializable {
         }
 
         searchTask = searchExecutor.schedule(() -> javafx.application.Platform.runLater(() -> {
-            String searchText = txtSearch.getText();
-            String statusText = cmbFilterStatus.getSelectionModel().getSelectedItem();
-            String categoryText = cmbFilterKategori.getSelectionModel().getSelectedItem();
-            String urutan = cmbSortUrutan.getSelectionModel().getSelectedItem(); // Get the sorting order
-            String sortBy = cmbSortBerdasarkan.getSelectionModel().getSelectedItem(); // Get the sorting criteria
+            String search = txtSearch.getText();
+            String statusText = cmbFilterStatus.getValue();
+            String categoryText = cmbFilterKategori.getValue();
+            String urutan = cmbSortUrutan.getValue();
+            String sortBy = cmbSortBerdasarkan.getValue();
 
             int status = statusText.equalsIgnoreCase("Aktif") ? 1 : 0;
-            String search = searchText.isEmpty() ? null : searchText;
-            String kategori = (categoryText != null && !categoryText.equals("None")) ? categoryText : null;
-
-            loadDetailsToTable(search, kategori, status, urutan, sortBy);
+            loadDetailsToTable(search.isEmpty() ? null : search, categoryText, status, urutan, sortBy);
         }), 0, TimeUnit.MILLISECONDS);
     }
 
@@ -107,217 +124,160 @@ public class FilmCtrl implements Initializable {
             return;
         }
 
-        String fxmlPath = "/cinelux/bioskopcinelux/view/List/FilmList.fxml"; // Pastikan path ini sesuai
-
         for (Film film : filmList) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/cinelux/bioskopcinelux/view/List/FilmList.fxml"));
                 Parent node = loader.load();
                 FilmListCtrl listCtrl = loader.getController();
                 listCtrl.setFilm(film);
-                listCtrl.setFilmController(this); // Agar bisa panggil delete/edit
+                listCtrl.setFilmController(this);
                 vbRowTable.getChildren().add(node);
             } catch (IOException e) {
-                System.err.println("Gagal memuat FilmList.fxml: " + e.getMessage());
                 e.printStackTrace();
             }
         }
     }
 
-    public void toogleStatusFilm(int id) {
+    public void toogleStatusFilm(int id, String modifiedBy) {
         Film film = filmImpl.getById(id);
         if (film == null) {
             msg.alertWarning("Data film tidak ditemukan.");
             return;
         }
 
-        String confirmMsg = film.getStatus() == 1
-                ? "Apakah Anda yakin ingin menonaktifkan film ini?"
-                : "Apakah Anda yakin ingin mengaktifkan kembali film ini?";
+        String currentUser = (user.getName() != null) ? user.getName() : "Admin";
 
-        if (msg.alertConfirm(confirmMsg)) {
-            OperationResult result = filmImpl.toogleStatus(id);
+        boolean confirm = msg.alertConfirm(
+                film.getStatus() == 1 ? "Nonaktifkan film ini?" : "Aktifkan kembali film ini?"
+        );
+
+        if (confirm) {
+            OperationResult result = filmImpl.deleteData(id, currentUser);
             if (result.isSuccess()) {
                 msg.alertInfo(result.getMessage());
-                delaySearch(); // reload data film
+                delaySearch();
             } else {
                 msg.alertError(result.getMessage());
             }
         }
     }
+
 
     public void loadDatatoForm(int id) {
         btnTambah.setVisible(false);
         btnUpdate.setVisible(true);
 
+        Film film = filmImpl.getById(id);
+        if (film != null) {
+            txtId.setText(String.valueOf(film.getId()));
+            txtJudul.setText(film.getJudul());
+            txtDurasi.setText(String.valueOf(film.getDurasi()));
+            cmbGenre.getSelectionModel().select(film.getGenre());
+            cmbRating.getSelectionModel().select(film.getRating_usia());
+
+            loadImageToImageView(film.getPoster()); // [UPDATED]
+            currentPosterFileName = film.getPoster(); // [ADDED] simpan nama file gambar yang sedang diedit
+        } else {
+            msg.alertError("Data film tidak ditemukan.");
+        }
+    }
+
+    private void loadImageToImageView(String posterPath) {
         try {
-            Film film = filmImpl.getById(id);
-
-            if (film != null) {
-                txtId.setText(String.valueOf(film.getId()));
-                txtJudul.setText(film.getJudul());
-                txtDurasi.setText(film.getDurasi());
-
-                // Set genre ke ComboBox
-                if (cmbGenre.getItems().contains(film.getGenre())) {
-                    cmbGenre.getSelectionModel().select(film.getGenre());
+            if (posterPath != null && !posterPath.trim().isEmpty()) {
+                File imageFile = new File("src/main/resources/images/" + posterPath);
+                if (imageFile.exists()) {
+                    imgPoster.setImage(new Image(imageFile.toURI().toString()));
                 } else {
-                    cmbGenre.getSelectionModel().clearSelection();
-                    System.out.println("Genre tidak ditemukan: " + film.getGenre());
+                    setDefaultImage();
                 }
-
-                // Set rating usia ke ComboBox
-                if (cmbRating.getItems().contains(film.getRating_usia())) {
-                    cmbRating.getSelectionModel().select(film.getRating_usia());
-                } else {
-                    cmbRating.getSelectionModel().clearSelection();
-                    System.out.println("Rating usia tidak ditemukan: " + film.getRating_usia());
-                }
-
-                // Kalau kamu punya input poster, bisa juga ditambahkan
-                // txtPoster.setText(film.getPoster());
-
             } else {
-                msg.alertError("Data film tidak ditemukan.");
+                setDefaultImage();
             }
         } catch (Exception e) {
-            msg.alertError("Terjadi kesalahan saat mengambil data film:\n" + e.getMessage());
-            e.printStackTrace();
+            setDefaultImage();
+        }
+    }
+
+    private void setDefaultImage() {
+        try {
+            Image placeholder = new Image(getClass().getResourceAsStream("/images/no-image-placeholder.png"));
+            imgPoster.setImage(placeholder);
+        } catch (Exception e) {
+            imgPoster.setImage(null);
         }
     }
 
     private void insertFilm() {
-        String usr = (user.getName() != null) ? user.getName() : "Admin";
-
-        // Validasi input kosong
-        if (txtJudul.getText().trim().isEmpty()) {
-            msg.alertWarning("Judul film tidak boleh kosong.");
+        if (txtJudul.getText().trim().isEmpty() || txtDurasi.getText().trim().isEmpty() ||
+                cmbGenre.getSelectionModel().isEmpty() || cmbRating.getSelectionModel().isEmpty()) {
+            msg.alertWarning("Lengkapi semua data!");
             return;
         }
 
-        if (txtDurasi.getText().trim().isEmpty()) {
-            msg.alertWarning("Durasi film tidak boleh kosong.");
-            return;
-        }
-
-        if (cmbGenre.getSelectionModel().isEmpty()) {
-            msg.alertWarning("Genre film harus dipilih.");
-            return;
-        }
-
-        if (cmbRating.getSelectionModel().isEmpty()) {
-            msg.alertWarning("Rating usia harus dipilih.");
-            return;
-        }
-
-        // Validasi angka durasi
         int durasi;
         try {
             durasi = Integer.parseInt(txtDurasi.getText().trim());
-            if (durasi <= 0) {
-                msg.alertWarning("Durasi harus lebih dari 0 menit.");
+            if (durasi <= 60) {
+                msg.alertWarning("Durasi harus lebih dari 60 menit.");
                 return;
             }
         } catch (NumberFormatException e) {
-            msg.alertError("Durasi harus berupa angka (dalam menit).");
+            msg.alertError("Durasi harus angka.");
             return;
         }
 
-        try {
-            // Ambil nilai dari inputan
-            String judul = txtJudul.getText().trim();
-            String genre = cmbGenre.getSelectionModel().getSelectedItem();
-            String ratingUsia = cmbRating.getSelectionModel().getSelectedItem();
+        Film newFilm = new Film(
+                0,
+                txtJudul.getText().trim(),
+                cmbGenre.getValue(),
+                durasi,
+                cmbRating.getValue(),
+                currentPosterFileName, // [UPDATED] simpan nama file poster
+                1,
+                user.getName() != null ? user.getName() : "Admin",
+                user.getName() != null ? user.getName() : "Admin"
+        );
 
-            // Jika ada field poster (optional)
-            String poster = null; // bisa tambahkan logic upload file kalau dibutuhkan
-
-            // Buat objek Film
-            Film newFilm = new Film(judul, genre, String.valueOf(durasi), ratingUsia, poster, 1, usr);
-
-            OperationResult result = filmImpl.insertData(newFilm);
-
-            if (result.isSuccess()) {
-                msg.alertInfo(result.getMessage());
-                delaySearch();
-                clearForm(); // buat method ini jika belum ada
-            } else {
-                msg.alertError(result.getMessage());
-            }
-
-        } catch (Exception e) {
-            msg.alertError("Terjadi kesalahan saat menyimpan data film:\n" + e.getMessage());
-            e.printStackTrace();
+        OperationResult result = filmImpl.insertData(newFilm);
+        if (result.isSuccess()) {
+            msg.alertInfo(result.getMessage());
+            delaySearch();
+            clearForm();
+        } else {
+            msg.alertError(result.getMessage());
         }
     }
 
     private void updateFilm() {
-        // Validasi input kosong
-        if (txtJudul.getText().trim().isEmpty()) {
-            msg.alertWarning("Judul film tidak boleh kosong!");
+        if (txtJudul.getText().trim().isEmpty() || txtDurasi.getText().trim().isEmpty() ||
+                cmbGenre.getSelectionModel().isEmpty() || cmbRating.getSelectionModel().isEmpty()) {
+            msg.alertWarning("Lengkapi semua data!");
             return;
         }
 
-        if (txtDurasi.getText().trim().isEmpty()) {
-            msg.alertWarning("Durasi film tidak boleh kosong!");
-            return;
-        }
-
-        if (cmbGenre.getSelectionModel().isEmpty()) {
-            msg.alertWarning("Genre film harus dipilih!");
-            return;
-        }
-
-        if (cmbRating.getSelectionModel().isEmpty()) {
-            msg.alertWarning("Rating usia harus dipilih!");
-            return;
-        }
-
-        // Validasi durasi numerik
+        int id = Integer.parseInt(txtId.getText().trim());
         int durasi;
         try {
             durasi = Integer.parseInt(txtDurasi.getText().trim());
-            if (durasi <= 0) {
-                msg.alertWarning("Durasi film harus lebih dari 0 menit.");
-                return;
-            }
         } catch (NumberFormatException e) {
-            msg.alertError("Durasi harus berupa angka (dalam menit).");
+            msg.alertError("Durasi tidak valid.");
             return;
         }
 
-        // Validasi ID
-        int filmId;
-        try {
-            filmId = Integer.parseInt(txtId.getText().trim());
-        } catch (NumberFormatException e) {
-            msg.alertError("ID film tidak valid.");
-            return;
-        }
-
-        // Ambil data inputan
-        String judul = txtJudul.getText().trim();
-        String genre = cmbGenre.getSelectionModel().getSelectedItem();
-        String rating = cmbRating.getSelectionModel().getSelectedItem();
-        String poster = null; // Atur jika kamu sudah memiliki mekanisme upload gambar
-
-        String usr = (user.getName() != null && !user.getName().isEmpty()) ? user.getName() : "Admin";
-
-        // Buat objek film
         Film updatedFilm = new Film(
-                filmId,
-                judul,
-                genre,
-                String.valueOf(durasi),
-                rating,
-                poster,
-                1, // status aktif
+                id,
+                txtJudul.getText().trim(),
+                cmbGenre.getValue(),
+                durasi,
+                cmbRating.getValue(),
+                currentPosterFileName, // [UPDATED]
+                1,
                 null,
-                usr // modifiedBy
+                user.getName() != null ? user.getName() : "Admin"
         );
 
         OperationResult result = filmImpl.updateData(updatedFilm);
-
         if (result.isSuccess()) {
             msg.alertInfo(result.getMessage());
             delaySearch();
@@ -328,33 +288,27 @@ public class FilmCtrl implements Initializable {
         clearForm();
     }
 
-
-
-    private void clearForm(){
+    private void clearForm() {
         txtJudul.clear();
         txtDurasi.clear();
         cmbRating.getSelectionModel().clearSelection();
         cmbGenre.getSelectionModel().clearSelection();
-        txtId.setText(""+(filmImpl.getLastId()+1));
-
+        imgPoster.setImage(null);
+        currentPosterFileName = null; // [ADDED] reset gambar
+        txtId.setText(String.valueOf(filmImpl.getLastId() + 1));
         btnUpdate.setVisible(false);
         btnTambah.setVisible(true);
     }
 
-
-    @FXML
-    void handleBtnClearClick(ActionEvent event) {
-
+    @FXML void handleBtnClearClick(ActionEvent event) {
+        clearForm();
     }
 
-    @FXML
-    void handleBtnInsertClick(ActionEvent event) {
-
+    @FXML void handleBtnInsertClick(ActionEvent event) {
+        insertFilm();
     }
 
-    @FXML
-    void handleBtnUpdateClick(ActionEvent event) {
-
+    @FXML void handleBtnUpdateClick(ActionEvent event) {
+        updateFilm();
     }
-
 }

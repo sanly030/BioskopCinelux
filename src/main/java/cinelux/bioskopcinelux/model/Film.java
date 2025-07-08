@@ -4,7 +4,7 @@ public class Film {
     private Integer id;
     private String judul;
     private String genre;
-    private String durasi;
+    private int durasi;
     private String rating_usia;
     private String poster;
     private int status;
@@ -16,7 +16,7 @@ public class Film {
     public Film() {}
 
     // Constructor lengkap (view / getAll)
-    public Film(Integer id, String judul, String genre, String durasi,
+    public Film(Integer id, String judul, String genre, int durasi,
                 String rating_usia, String poster, int status,
                 String createdBy,
                 String modifiedBy) {
@@ -33,7 +33,7 @@ public class Film {
     }
 
     // Constructor untuk INSERT
-    public Film(String judul, String genre, String durasi,
+    public Film(String judul, String genre, int durasi,
                 String rating_usia, String poster, int status,
                 String createdBy) {
         this.judul = judul;
@@ -46,7 +46,7 @@ public class Film {
     }
 
     // Constructor untuk UPDATE
-    public Film(Integer id, String judul, String genre, String durasi,
+    public Film(Integer id, String judul, String genre, int durasi,
                 String rating_usia, String poster, int status,
                 String modifiedBy) {
         this.id = id;
@@ -66,8 +66,8 @@ public class Film {
     public void setJudul(String judul) {this.judul = judul;}
     public String getGenre() {return genre;}
     public void setGenre(String genre) {this.genre = genre;}
-    public String getDurasi() {return durasi;}
-    public void setDurasi(String durasi) {this.durasi = durasi;}
+    public int getDurasi() {return durasi;}
+    public void setDurasi(int durasi) {this.durasi = durasi;}
     public String getRating_usia() {return rating_usia;}
     public void setRating_usia(String rating_usia) {this.rating_usia = rating_usia;}
     public String getPoster() {return poster;}

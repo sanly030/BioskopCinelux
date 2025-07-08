@@ -18,7 +18,7 @@ public class FilmImpl implements FilmSrvc {
                 rs.getInt("flm_id"),
                 rs.getString("flm_judul"),
                 rs.getString("flm_genre"),
-                String.valueOf(rs.getInt("flm_durasi")) + " menit", // jika ingin dikembalikan sebagai string + satuan
+                rs.getInt("flm_durasi"),
                 rs.getString("flm_rating_usia"),
                 rs.getString("flm_poster"),
                 rs.getInt("flm_status"),
@@ -26,7 +26,6 @@ public class FilmImpl implements FilmSrvc {
                 rs.getString("flm_modif_by")
         );
     }
-
 
     @Override
     public List<Film> getAllData() {
@@ -100,7 +99,7 @@ public class FilmImpl implements FilmSrvc {
         ResultSet rs = null;
 
         try {
-            String sql = "SELECT MAX(film_id) AS id FROM Film";
+            String sql = "SELECT MAX(flm_id) AS id FROM Film";
             connect.pstat = connect.conn.prepareStatement(sql);
             rs = connect.pstat.executeQuery();
 
@@ -128,7 +127,7 @@ public class FilmImpl implements FilmSrvc {
             connect.pstat = connect.conn.prepareCall(sql);
             connect.pstat.setString(1, film.getJudul());
             connect.pstat.setString(2, film.getGenre());
-            connect.pstat.setString(3, film.getDurasi());
+            connect.pstat.setInt(3, film.getDurasi());
             connect.pstat.setString(4, film.getRating_usia());
             connect.pstat.setString(5, film.getPoster());
             connect.pstat.setInt(6, film.getStatus());
@@ -150,14 +149,15 @@ public class FilmImpl implements FilmSrvc {
     @Override
     public OperationResult updateData(Film film) {
         try {
-            String sql = "{CALL sp_UpdateFilm(?, ?, ?, ?, ?, ?, ?, ?)}";
+            String sql = "{CALL sp_UpdateFilm(?, ?, ?, ?, ?, ?, ?, ?)}"; // jumlah argumen disesuaikan
             connect.pstat = connect.conn.prepareCall(sql);
+
             connect.pstat.setInt(1, film.getId());
             connect.pstat.setString(2, film.getJudul());
             connect.pstat.setString(3, film.getGenre());
-            connect.pstat.setString(4, film.getDurasi());
+            connect.pstat.setInt(4, film.getDurasi());
             connect.pstat.setString(5, film.getRating_usia());
-            connect.pstat.setString(6, film.getPoster());
+            connect.pstat.setString(6, film.getPoster()); // ✅ poster ditambahkan
             connect.pstat.setInt(7, film.getStatus());
             connect.pstat.setString(8, film.getModifiedBy());
 
@@ -174,14 +174,16 @@ public class FilmImpl implements FilmSrvc {
         }
     }
 
+
     @Override
-    public OperationResult deleteData(int id) {
+    public OperationResult deleteData(int id, String modifBy) {
         try {
-            String sql = "{CALL sp_DeleteFilm(?)}";
+            String sql = "{CALL sp_DeleteFilm(?, ?)}";
             connect.pstat = connect.conn.prepareCall(sql);
             connect.pstat.setInt(1, id);
+            connect.pstat.setString(2, modifBy); // ✅ tambahkan user yg menghapus
             connect.pstat.execute();
-            return OperationResult.success("Film berhasil dihapus.");
+            return OperationResult.success("Film berhasil dihapus (nonaktif).");
         } catch (SQLException e) {
             return OperationResult.failure("Gagal menghapus film: " + e.getMessage());
         } finally {
@@ -192,6 +194,7 @@ public class FilmImpl implements FilmSrvc {
             }
         }
     }
+
 
     @Override
     public OperationResult toogleStatus(int id) {

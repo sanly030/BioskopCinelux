@@ -2,6 +2,7 @@ package cinelux.bioskopcinelux.controller.list;
 
 import cinelux.bioskopcinelux.controller.master.FilmCtrl;
 import cinelux.bioskopcinelux.model.Film;
+import cinelux.bioskopcinelux.model.Role;
 import cinelux.bioskopcinelux.util.MessageBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,6 +38,7 @@ public class FilmListCtrl {
 
     private Film film;
     private FilmCtrl filmsCtrl;
+    Role user = new Role();
 
     public void setFilmController(FilmCtrl controller) {
         this.filmsCtrl = controller;
@@ -46,7 +48,7 @@ public class FilmListCtrl {
         this.film = film;
         lbNama.setText(film.getJudul());
         lbGenre.setText(film.getGenre());
-        lbDurasi.setText(String.format (film.getDurasi()));
+        lbDurasi.setText(String.valueOf(film.getDurasi()));
         lbRating.setText(film.getRating_usia());
 
         int status = film.getStatus();
@@ -77,10 +79,14 @@ public class FilmListCtrl {
     @FXML
     void btnDeleteClick(ActionEvent event) {
         int id = film.getId();
-        if(filmsCtrl != null){
-            filmsCtrl.toogleStatusFilm(id);
+
+        String modifiedBy = (user.getName() != null) ? user.getName() : "Admin"; // ✅ Ambil user yang aktif
+
+        if (filmsCtrl != null) {
+            filmsCtrl.toogleStatusFilm(id, modifiedBy); // ✅ Kirim ID dan user
         }
     }
+
 
     @FXML
     void btnUpdateClick(ActionEvent event) {

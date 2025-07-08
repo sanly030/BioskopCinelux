@@ -22,7 +22,7 @@ public interface FilmSrvc {
     // Update data
     OperationResult updateData(Film film);
     // Hapus atau toggle status film (aktif/tidak aktif)
-    OperationResult deleteData(int id);
+    OperationResult deleteData(int id, String modifiedBy);
     // Toggle status aktif/nonaktif
     OperationResult toogleStatus(int id);
 }
