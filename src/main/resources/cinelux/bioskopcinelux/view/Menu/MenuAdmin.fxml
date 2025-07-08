@@ -7,300 +7,304 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinelux.bioskopcinelux.controller.menu.MenuAdminCtrl">
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #FFFDD0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kelompok5.bioskopcinelux.controller.menu.MenuAdminCtrl">
    <children>
-      <BorderPane prefHeight="1080.0" prefWidth="1920.0">
+      <BorderPane fx:id="mainBorderPane" prefHeight="1080.0" prefWidth="1920.0">
          <top>
-            <AnchorPane prefHeight="141.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="151.0" prefWidth="1920.0" style="-fx-background-color: #5d361d;" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="158.0" fitWidth="388.0" pickOnBounds="true" preserveRatio="true">
+                  <AnchorPane layoutX="293.0" layoutY="-4.0" prefHeight="170.0" prefWidth="1627.0" style="-fx-background-color: #5d361d; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0.5, 3, 1);">
+                     <children>
+                        <Circle fx:id="imgEmployee" fill="#a7d5ff" layoutX="1538.0" layoutY="88.0" radius="50.0" stroke="#edf4f2" strokeType="INSIDE" strokeWidth="3.0" />
+                        <Label fx:id="lbEmployeeName" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="1262.0" layoutY="73.0" prefHeight="24.0" prefWidth="200.0" text="Employee Name" textAlignment="RIGHT" textFill="#edf4f2">
+                           <font>
+                              <Font name="Segoe UI Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lbRole" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="1380.0" layoutY="103.0" prefHeight="19.0" prefWidth="80.0" text="Role" textAlignment="RIGHT" textFill="#edf4f2">
+                           <font>
+                              <Font name="Segoe UI" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="headTittle" layoutX="157.0" layoutY="55.0" prefHeight="58.0" prefWidth="442.0" text="Tittle" textFill="#edf4f2">
+                           <font>
+                              <Font name="System Bold" size="40.0" />
+                           </font>
+                        </Label>
+                        <ImageView fx:id="imgTittle" fitHeight="78.0" fitWidth="77.0" layoutX="55.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" styleClass="menu-image">
+                           <image>
+                              <Image url="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/image/LogoMaster/LogoDashboard.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="lbSubTittle" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="160.0" layoutY="107.0" prefHeight="23.0" prefWidth="568.0" text="Subtittle" textFill="#edf4f2">
+                           <font>
+                              <Font name="Segoe UI" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <ImageView fitHeight="136.0" fitWidth="270.0" layoutX="12.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../asset/image/Cinelux.png" />
+                        <Image url="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/image/Icon/LogoCineLux.png" />
                      </image>
                   </ImageView>
-                  <AnchorPane layoutX="350.0" layoutY="-41.0" prefHeight="198.0" prefWidth="1570.0" style="-fx-background-color: #674636;" />
                </children>
+               <BorderPane.margin>
+                  <Insets top="-5.0" />
+               </BorderPane.margin>
             </AnchorPane>
          </top>
          <left>
-            <AnchorPane prefHeight="715.0" prefWidth="350.0" style="-fx-background-color: #674636;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="841.0" prefWidth="293.0" style="-fx-background-color: #5d361d; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0.5, 3, 1);" BorderPane.alignment="CENTER">
                <children>
-                  <VBox layoutX="30.0" layoutY="30.0" prefHeight="748.0" prefWidth="320.0">
+                  <VBox layoutX="15.0" layoutY="41.0" prefHeight="567.0" prefWidth="278.0">
                      <children>
-                        <HBox prefHeight="69.0" prefWidth="320.0">
+                        <HBox fx:id="dashboardMenu" alignment="CENTER_LEFT" onMouseClicked="#handleDashboardClick" prefHeight="72.0" prefWidth="226.0" style="-fx-cursor: hand; -fx-background-radius: 10 0 0 10;" styleClass="menu-item" stylesheets="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/style/sidebar.css">
                            <children>
-                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets left="10.0" top="10.0" />
-                                 </HBox.margin>
+                              <ImageView fitHeight="56.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="menu-image">
                                  <image>
-                                    <Image url="@../../asset/image/ikon_dashboard.png" />
+                                    <Image url="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/image/LogoMaster/LogoDashboard.png" />
                                  </image>
                               </ImageView>
-                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Dashboard" textFill="WHITE">
+                              <Label fx:id="lbDashboardMenu" alignment="TOP_LEFT" contentDisplay="CENTER" text="Dashboard" textFill="#edf4f2">
                                  <font>
-                                    <Font name="Segoe UI Bold" size="25.0" />
+                                    <Font name="Segoe UI" size="20.0" />
                                  </font>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
                                  <HBox.margin>
-                                    <Insets left="20.0" top="15.0" />
+                                    <Insets left="20.0" />
                                  </HBox.margin>
                               </Label>
                            </children>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
                            <padding>
-                              <Insets top="2.0" />
+                              <Insets left="20.0" />
                            </padding>
                            <VBox.margin>
-                              <Insets top="10.0" />
+                              <Insets bottom="10.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="69.0" prefWidth="320.0">
+                        <HBox fx:id="chariMenu" alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="72.0" prefWidth="226.0" style="-fx-cursor: hand; -fx-background-radius: 10 0 0 10;" styleClass="menu-item" stylesheets="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/style/Sidebar.css">
                            <children>
-                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets left="10.0" top="10.0" />
-                                 </HBox.margin>
+                              <ImageView fitHeight="56.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="menu-image">
                                  <image>
-                                    <Image url="@../../asset/image/ikon_kursi.png" />
+                                    <Image url="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/image/LogoMaster/LogoChair.png" />
                                  </image>
                               </ImageView>
-                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Chair" textFill="WHITE">
+                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Chair" textFill="#edf4f2">
                                  <font>
-                                    <Font name="Segoe UI Bold" size="25.0" />
+                                    <Font name="Segoe UI" size="20.0" />
                                  </font>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <HBox.margin>
-                                    <Insets left="20.0" top="15.0" />
-                                 </HBox.margin>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
                               </Label>
                            </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
                            <VBox.margin>
-                              <Insets top="10.0" />
+                              <Insets bottom="10.0" />
                            </VBox.margin>
                         </HBox>
+//                        <HBox fx:id="employeeMenu" alignment="CENTER_LEFT" layoutX="10.0" layoutY="82.0" prefHeight="72.0" prefWidth="226.0" style="-fx-cursor: hand; -fx-background-radius: 10 0 0 10;" styleClass="menu-item" stylesheets="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/style/Sidebar.css">
+
                         <HBox layoutX="10.0" layoutY="79.0" onMouseClicked="#btnFilmOnAction" prefHeight="69.0" prefWidth="320.0">
+
                            <children>
-                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets left="10.0" top="10.0" />
-                                 </HBox.margin>
+                              <ImageView fitHeight="56.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="menu-image">
                                  <image>
-                                    <Image url="@../../asset/image/icon_film.png" />
+                                    <Image url="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/image/LogoMaster/LogoEmployee.png" />
                                  </image>
                               </ImageView>
-                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Film" textFill="WHITE">
+                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Employee" textFill="#edf4f2">
                                  <font>
-                                    <Font name="Segoe UI Bold" size="25.0" />
+                                    <Font name="Segoe UI" size="20.0" />
                                  </font>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <HBox.margin>
-                                    <Insets left="20.0" top="15.0" />
-                                 </HBox.margin>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
                               </Label>
                            </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
                            <VBox.margin>
-                              <Insets top="10.0" />
+                              <Insets bottom="10.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox layoutX="10.0" layoutY="148.0" prefHeight="69.0" prefWidth="320.0">
+                        <HBox fx:id="filmMenu" alignment="CENTER_LEFT" layoutX="10.0" layoutY="466.0" prefHeight="72.0" prefWidth="226.0" style="-fx-cursor: hand; -fx-background-radius: 10 0 0 10;" styleClass="menu-item" stylesheets="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/style/Sidebar.css">
                            <children>
-                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets left="10.0" top="10.0" />
-                                 </HBox.margin>
+                              <ImageView fitHeight="56.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="menu-image">
                                  <image>
-                                    <Image url="@../../asset/image/icon_schedule.png" />
+                                    <Image url="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/image/LogoMaster/LogoFilm.png" />
                                  </image>
                               </ImageView>
-                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Broadcast Schedule" textFill="WHITE">
+                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Film" textFill="#edf4f2">
                                  <font>
-                                    <Font name="Segoe UI Bold" size="25.0" />
+                                    <Font name="Segoe UI" size="20.0" />
                                  </font>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <HBox.margin>
-                                    <Insets left="20.0" top="15.0" />
-                                 </HBox.margin>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
                               </Label>
                            </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
                            <VBox.margin>
-                              <Insets top="10.0" />
+                              <Insets bottom="10.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox fx:id="btnMenu" layoutX="10.0" layoutY="217.0" onMouseClicked="#btnMenuOnAction" prefHeight="69.0" prefWidth="320.0">
+                        <HBox fx:id="boardcastScheduleMenu" alignment="CENTER_LEFT" layoutX="10.0" layoutY="154.0" prefHeight="72.0" prefWidth="226.0" style="-fx-cursor: hand; -fx-background-radius: 10 0 0 10;" styleClass="menu-item" stylesheets="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/style/Sidebar.css">
                            <children>
-                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets left="10.0" top="10.0" />
-                                 </HBox.margin>
+                              <ImageView fitHeight="56.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="menu-image">
                                  <image>
-                                    <Image url="@../../asset/image/icon_menu.png" />
+                                    <Image url="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/image/LogoMaster/LogoBoardcastSchedule.png" />
                                  </image>
                               </ImageView>
-                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Menu" textFill="WHITE">
+                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Boardcast Schedule" textFill="#edf4f2">
                                  <font>
-                                    <Font name="Segoe UI Bold" size="30.0" />
+                                    <Font name="Segoe UI" size="20.0" />
                                  </font>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <HBox.margin>
-                                    <Insets left="20.0" top="15.0" />
-                                 </HBox.margin>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
                               </Label>
                            </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
                            <VBox.margin>
-                              <Insets top="10.0" />
+                              <Insets bottom="10.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox fx:id="btnPromo" layoutX="10.0" layoutY="286.0" onMouseClicked="#btnPromoOnAction" prefHeight="69.0" prefWidth="320.0">
+                        <HBox fx:id="menuMenu" alignment="CENTER_LEFT" layoutX="10.0" layoutY="226.0" prefHeight="72.0" prefWidth="226.0" style="-fx-cursor: hand; -fx-background-radius: 10 0 0 10;" styleClass="menu-item" stylesheets="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/style/Sidebar.css">
                            <children>
-                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets left="10.0" top="10.0" />
-                                 </HBox.margin>
+                              <ImageView fitHeight="56.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="menu-image">
                                  <image>
-                                    <Image url="@../../asset/image/icon_promo.png" />
+                                    <Image url="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/image/LogoMaster/LogoMenu.png" />
                                  </image>
                               </ImageView>
-                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Promo" textFill="WHITE">
+                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Menu" textFill="#edf4f2">
                                  <font>
-                                    <Font name="Segoe UI Bold" size="30.0" />
+                                    <Font name="Segoe UI" size="20.0" />
                                  </font>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <HBox.margin>
-                                    <Insets left="20.0" top="15.0" />
-                                 </HBox.margin>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
                               </Label>
                            </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
                            <VBox.margin>
-                              <Insets top="10.0" />
+                              <Insets bottom="10.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox layoutX="10.0" layoutY="355.0" prefHeight="69.0" prefWidth="320.0">
+                        <HBox fx:id="promoMenu" alignment="CENTER_LEFT" layoutX="10.0" layoutY="298.0" prefHeight="72.0" prefWidth="226.0" style="-fx-cursor: hand; -fx-background-radius: 10 0 0 10;" styleClass="menu-item" stylesheets="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/style/Sidebar.css">
                            <children>
-                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets left="10.0" top="10.0" />
-                                 </HBox.margin>
+                              <ImageView fitHeight="56.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="menu-image">
                                  <image>
-                                    <Image url="@../../asset/image/icon_studio.png" />
+                                    <Image url="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/image/LogoMaster/LogoPromo.png" />
                                  </image>
                               </ImageView>
-                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Studio" textFill="WHITE">
+                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Promo" textFill="#edf4f2">
                                  <font>
-                                    <Font name="Segoe UI Bold" size="30.0" />
+                                    <Font name="Segoe UI" size="20.0" />
                                  </font>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <HBox.margin>
-                                    <Insets left="20.0" top="15.0" />
-                                 </HBox.margin>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
                               </Label>
                            </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
                            <VBox.margin>
-                              <Insets top="10.0" />
+                              <Insets bottom="10.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox fx:id="btnPegawai" layoutX="10.0" layoutY="424.0" onMouseClicked="#btnPegawaiOnAction" prefHeight="69.0" prefWidth="320.0">
+                        <HBox fx:id="studioMenu" alignment="CENTER_LEFT" layoutX="10.0" layoutY="370.0" prefHeight="72.0" prefWidth="226.0" style="-fx-cursor: hand; -fx-background-radius: 10 0 0 10;" styleClass="menu-item" stylesheets="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/style/Sidebar.css">
                            <children>
-                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets left="10.0" top="10.0" />
-                                 </HBox.margin>
+                              <ImageView fitHeight="56.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="menu-image">
                                  <image>
-                                    <Image url="@../../asset/image/icon_employee.png" />
+                                    <Image url="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/image/LogoMaster/LogoStudio.png" />
                                  </image>
                               </ImageView>
-                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Pegawai" textFill="WHITE">
+                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Studio" textFill="#edf4f2">
                                  <font>
-                                    <Font name="Segoe UI Bold" size="30.0" />
+                                    <Font name="Segoe UI" size="20.0" />
                                  </font>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <HBox.margin>
-                                    <Insets left="20.0" top="15.0" />
-                                 </HBox.margin>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
                               </Label>
                            </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
                            <VBox.margin>
-                              <Insets top="10.0" />
+                              <Insets bottom="10.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox fx:id="btnSetting" layoutX="10.0" layoutY="493.0" onMouseClicked="#btnSettingOnAction" prefHeight="69.0" prefWidth="320.0">
+                        <HBox fx:id="tableSettingMenu" alignment="CENTER_LEFT" layoutX="10.0" layoutY="448.0" onMouseClicked="#handleTableSettingClick" prefHeight="72.0" prefWidth="226.0" style="-fx-cursor: hand; -fx-background-radius: 10 0 0 10;" styleClass="menu-item" stylesheets="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/style/Sidebar.css">
                            <children>
-                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets left="10.0" top="10.0" />
-                                 </HBox.margin>
+                              <ImageView fitHeight="56.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="menu-image">
                                  <image>
-                                    <Image url="@../../asset/image/icon_tableSetting.png" />
+                                    <Image url="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/image/LogoMaster/LogoTableSetting.png" />
                                  </image>
                               </ImageView>
-                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Setting" textFill="WHITE">
+                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Table Setting" textFill="#edf4f2">
                                  <font>
-                                    <Font name="Segoe UI Bold" size="30.0" />
+                                    <Font name="Segoe UI" size="20.0" />
                                  </font>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <HBox.margin>
-                                    <Insets left="20.0" top="15.0" />
-                                 </HBox.margin>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
                               </Label>
                            </children>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
                         </HBox>
                      </children>
                   </VBox>
-                  <HBox layoutX="65.0" layoutY="795.0" prefHeight="89.0" prefWidth="213.0" style="-fx-background-color: #F7EED3; -fx-background-radius: 15;">
+                  <HBox fx:id="exitMenu" alignment="CENTER_LEFT" layoutY="842.0" onMouseClicked="#btnExitClicked" prefHeight="77.0" prefWidth="293.0" styleClass="exit-button" stylesheets="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/style/sidebar.css">
                      <children>
-                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                           <HBox.margin>
-                              <Insets left="15.0" top="15.0" />
-                           </HBox.margin>
+                        <ImageView fitHeight="29.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0.5, 0, 0);">
                            <image>
-                              <Image url="@../../asset/image/icon_logout.png" />
+                              <Image url="@../../../../../../../../BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/image/Icon/Exit.png" />
                            </image>
-                        </ImageView>
-                        <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Logout" textFill="#674636">
-                           <font>
-                              <Font name="Segoe UI Bold" size="30.0" />
-                           </font>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
                            <HBox.margin>
-                              <Insets left="5.0" top="26.0" />
+                              <Insets left="107.0" top="-3.0" />
                            </HBox.margin>
+                        </ImageView>
+                        <Label alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="37.0" text="Exit" textFill="#5d361d">
+                           <font>
+                              <Font name="Segoe UI" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="6.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets left="2.0" top="3.0" />
+                           </padding>
                         </Label>
                      </children>
                   </HBox>
                </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
             </AnchorPane>
          </left>
          <center>
-            <AnchorPane fx:id="panelMaster" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <AnchorPane fx:id="mainAnchorPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
    </children>
-</AnchorPane>
+</StackPane>
