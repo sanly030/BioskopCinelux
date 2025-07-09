@@ -10,7 +10,7 @@ module cinelux.bioskopcinelux {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires java.sql;
-    requires java.desktop;
+    requires javafx.graphics;
 
     opens cinelux.bioskopcinelux to javafx.fxml;
     opens cinelux.bioskopcinelux.controller.menu to javafx.fxml;

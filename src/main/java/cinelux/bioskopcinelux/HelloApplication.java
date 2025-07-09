@@ -11,12 +11,13 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/cinelux/bioskopcinelux/view/Menu/MenuAdmin.fxml"));
+//        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/cinelux/bioskopcinelux/view/Menu/MenuAdmin.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/cinelux/bioskopcinelux/view/Login/Login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1920, 1080);
         stage.setTitle("BIOSKOP CINELUX");
-        stage.setFullScreen(true);
+        stage.setFullScreen(false);
         stage.setFullScreenExitHint("");
-        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+//        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setScene(scene);
         stage.show();
     }

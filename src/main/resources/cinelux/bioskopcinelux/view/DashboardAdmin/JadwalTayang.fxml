@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="922.0" prefWidth="1570.0" stylesheets="@../../style/bagan.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinelux.bioskopcinelux.controller.master.SettingCtrl">
+<AnchorPane prefHeight="922.0" prefWidth="1570.0" stylesheets="@../../style/bagan.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinelux.bioskopcinelux.controller.master.JadwalTayangCtrl">
    <children>
       <BorderPane prefHeight="922.0" prefWidth="1570.0">
          <right>
@@ -29,36 +29,34 @@
                      <children>
                         <AnchorPane prefHeight="666.0" prefWidth="404.0">
                            <children>
-                              <Label layoutX="14.0" layoutY="17.0" text="ID Setting ">
+                              <Label layoutX="17.0" layoutY="17.0" text="ID Jadwal Tayang">
                                  <font>
                                     <Font name="Segoe UI" size="15.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="14.0" layoutY="93.0" text="Name">
+                              <Label layoutX="18.0" layoutY="94.0" text="Film">
                                  <font>
                                     <Font name="Segoe UI" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtId" layoutX="14.0" layoutY="48.0" prefHeight="39.0" prefWidth="370.0" styleClass="textFieldinput" />
-                              <TextField fx:id="txtNama" layoutX="14.0" layoutY="124.0" prefHeight="39.0" prefWidth="370.0" styleClass="textFieldinput" />
-                              <Label layoutX="14.0" layoutY="176.0" text="Value">
+                              <TextField fx:id="txtId" layoutX="17.0" layoutY="48.0" prefHeight="39.0" prefWidth="370.0" styleClass="textFieldinput" />
+                              <Label layoutX="18.0" layoutY="176.0" text="Studio">
                                  <font>
                                     <Font name="Segoe UI" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtValue" layoutX="14.0" layoutY="206.0" prefHeight="39.0" prefWidth="370.0" styleClass="textFieldinput" />
-                              <Label layoutX="16.0" layoutY="255.0" text="Kategori">
+                              <Label layoutX="18.0" layoutY="255.0" text="Hari">
                                  <font>
                                     <Font name="Segoe UI" size="15.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="cmbKategori" layoutX="16.0" layoutY="290.0" prefHeight="40.0" prefWidth="367.0" styleClass="combo-box-input" stylesheets="@../../../../../../../../../BioskopCinelux/BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/style/bagan.css" />
-                              <Button fx:id="btnClear" layoutX="202.0" layoutY="493.0" mnemonicParsing="false" onAction="#handleBtnClearClick" prefHeight="34.0" prefWidth="119.0" style="-fx-background-color: #674636;" text="Clear" textFill="WHITE">
+                              <ComboBox fx:id="cmbHari" layoutX="17.0" layoutY="290.0" prefHeight="40.0" prefWidth="367.0" promptText="--Pilih Hari--" styleClass="combo-box-input" stylesheets="@../../../../../../../../../BioskopCinelux/BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/style/bagan.css" />
+                              <Button fx:id="btnClear" layoutX="212.0" layoutY="572.0" mnemonicParsing="false" onAction="#handleBtnClearClick" prefHeight="34.0" prefWidth="119.0" style="-fx-background-color: #674636;" text="Clear" textFill="WHITE">
                                  <font>
                                     <Font name="Segoe UI Black" size="15.0" />
                                  </font>
                               </Button>
-                              <StackPane layoutX="34.0" layoutY="492.0" prefHeight="36.0" prefWidth="171.0">
+                              <StackPane layoutX="47.0" layoutY="571.0" prefHeight="36.0" prefWidth="171.0">
                                  <children>
                                     <Button fx:id="btnUpdate" layoutX="36.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleBtnUpdateClick" prefHeight="34.0" prefWidth="119.0" style="-fx-background-color: #674636;" text="Update" textFill="WHITE">
                                        <font>
@@ -72,6 +70,26 @@
                                     </Button>
                                  </children>
                               </StackPane>
+                              <ComboBox fx:id="cmbStudio" layoutX="17.0" layoutY="205.0" prefHeight="40.0" prefWidth="367.0" promptText="--Pilih Studio--" styleClass="combo-box-input" stylesheets="@../../../../../../../../../BioskopCinelux/BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/style/bagan.css" />
+                              <ComboBox fx:id="cmbFilm" layoutX="18.0" layoutY="121.0" prefHeight="40.0" prefWidth="367.0" promptText="--Pilih Film--" styleClass="combo-box-input" stylesheets="@../../../../../../../../../BioskopCinelux/BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/style/bagan.css" />
+                              <Label layoutX="17.0" layoutY="412.0" text="Jam Mulai">
+                                 <font>
+                                    <Font name="Segoe UI" size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtJamMulai" layoutX="20.0" layoutY="437.0" prefHeight="39.0" prefWidth="143.0" styleClass="textFieldinput" />
+                              <Label layoutX="234.0" layoutY="410.0" text="Jam Selesai">
+                                 <font>
+                                    <Font name="Segoe UI" size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtJamSelesai" layoutX="232.0" layoutY="434.0" prefHeight="39.0" prefWidth="143.0" styleClass="textFieldinput" />
+                              <TextField fx:id="txtHarga" layoutX="17.0" layoutY="368.0" prefHeight="39.0" prefWidth="366.0" styleClass="textFieldinput" />
+                              <Label layoutX="18.0" layoutY="340.0" text="Harga">
+                                 <font>
+                                    <Font name="Segoe UI" size="15.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                      </children>
@@ -96,29 +114,41 @@
                         <Image url="@../../asset/image/icon_filter.png" />
                      </image>
                   </ImageView>
-                  <HBox layoutX="27.0" layoutY="123.0" prefHeight="66.0" prefWidth="938.0" style="-fx-background-color: #674636; -fx-background-radius: 5;">
+                  <HBox layoutX="27.0" layoutY="123.0" prefHeight="66.0" prefWidth="1070.0" style="-fx-background-color: #674636; -fx-background-radius: 5;">
                      <children>
-                        <GridPane prefHeight="66.0" prefWidth="789.0">
+                        <GridPane prefHeight="66.0" prefWidth="817.0">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.0" minWidth="10.0" prefWidth="256.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="434.0" minWidth="10.0" prefWidth="259.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.0" minWidth="10.0" prefWidth="292.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="434.0" minWidth="10.0" prefWidth="177.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.0" minWidth="10.0" prefWidth="176.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.0" minWidth="10.0" prefWidth="160.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.0" minWidth="10.0" prefWidth="172.0" />
                            </columnConstraints>
                            <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <Label prefHeight="19.0" prefWidth="53.0" text="Nama" textFill="WHITE">
+                              <Label prefHeight="19.0" prefWidth="53.0" text="Film" textFill="WHITE">
                                  <font>
                                     <Font name="Segoe UI Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <Label text="Value" textFill="WHITE" GridPane.columnIndex="1">
+                              <Label text="Studio" textFill="WHITE" GridPane.columnIndex="1">
                                  <font>
                                     <Font name="Segoe UI Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <Label text="Kategori" textFill="WHITE" GridPane.columnIndex="2">
+                              <Label text="Hari" textFill="WHITE" GridPane.columnIndex="2">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="295.0" layoutY="34.0" text="Jam Mulai" textFill="WHITE" GridPane.columnIndex="3">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="472.0" layoutY="34.0" text="Jam Selesai" textFill="WHITE" GridPane.columnIndex="4">
                                  <font>
                                     <Font name="Segoe UI Bold" size="15.0" />
                                  </font>
@@ -161,9 +191,9 @@
                         </Button>
                      </children>
                   </AnchorPane>
-                  <ScrollPane layoutX="27.0" layoutY="203.0" prefHeight="677.0" prefWidth="980.0" stylesheets="@../../style/bagan.css">
+                  <ScrollPane layoutX="27.0" layoutY="203.0" prefHeight="677.0" prefWidth="1083.0" stylesheets="@../../style/bagan.css">
                      <content>
-                        <VBox fx:id="vbRowTable" prefHeight="78.0" prefWidth="914.0" style="-fx-background-color: transparent;" />
+                        <VBox fx:id="vbRowTable" prefHeight="78.0" prefWidth="1067.0" style="-fx-background-color: transparent;" />
                      </content>
                   </ScrollPane>
                   <AnchorPane layoutX="748.0" layoutY="95.0" prefHeight="141.0" prefWidth="366.0" style="-fx-background-color: #F0EDE4;" visible="false">

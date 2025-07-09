@@ -192,19 +192,6 @@
                         <VBox fx:id="vbRowTable" prefHeight="78.0" prefWidth="1048.0" style="-fx-background-color: transparent;" />
                      </content>
                   </ScrollPane>
-                  <Button fx:id="btnUrutan" layoutX="792.0" layoutY="50.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" style="-fx-background-color: #674636;" text="      Urutkan" textFill="WHITE">
-                     <font>
-                        <Font name="Segoe UI Black" size="18.0" />
-                     </font>
-                     <tooltip>
-                        <Tooltip text="Filter Data" />
-                     </tooltip>
-                  </Button>
-                  <ImageView fitHeight="31.0" fitWidth="41.0" layoutX="808.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../asset/image/icon_filter.png" />
-                     </image>
-                  </ImageView>
                   <AnchorPane layoutX="748.0" layoutY="95.0" prefHeight="141.0" prefWidth="366.0" style="-fx-background-color: #F0EDE4;" visible="false">
                      <children>
                         <HBox layoutY="14.0" prefHeight="66.0" prefWidth="369.0">

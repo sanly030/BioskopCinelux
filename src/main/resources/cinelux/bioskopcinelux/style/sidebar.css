@@ -1,0 +1,68 @@
+.menu-item {
+    -fx-background-color: transparent;
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+}
+
+.menu-item .label {
+    -fx-font-size: 14px;
+    -fx-text-fill: white; /* warna teks default (putih) */
+}
+
+.menu-item:hover {
+    -fx-background-color: #FFFDD0;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.menu-item:hover .label {
+    -fx-font-size: 15px;
+    -fx-text-fill: #5d361d; /* warna teks saat hover */
+}
+
+.menu-item-active {
+    -fx-background-color: #FFFDD0;
+}
+
+.menu-item-active .label {
+    -fx-text-fill: #31473A;
+    -fx-font-size: 14px;
+}
+
+.exit-button {
+    -fx-cursor: hand;
+    -fx-background-color: #383117;
+    -fx-padding: 10;
+/-fx-background-radius: 10;/
+-fx-effect: dropshadow(gaussian, rgba(0,0,0,0), 0, 0, 0, 0);
+
+/-fx-scale-x: 1;/
+/-fx-scale-y: 1;/
+/-fx-font-size: 14px;/
+}
+
+.exit-button:hover {
+    -fx-background-color: rgba(255, 132, 132, 0.95);
+    -fx-font-size: 15px;
+}
+
+.exit-button:pressed {
+    -fx-background-color: #383117;
+    -fx-font-size: 14px;
+}
+
+.menu-image {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0.5, 0, 0);
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+}
+
+.menu-item:hover .menu-image {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: white; /* default tetap putih */
+}

@@ -17,7 +17,7 @@ public class SwapPage {
     public void openNewWindow(String fxmlFile, String windowTitle, Node currentNode) {
         try {
 
-            URL fxmlUrl = getClass().getResource("/projekkelompok4/manajementokofurniture_4niture/fxml/" + fxmlFile);
+            URL fxmlUrl = getClass().getResource("/cinelux/bioskopcinelux/view/" + fxmlFile);
             if (fxmlUrl == null) {
                 showAlert(Alert.AlertType.ERROR, "Kesalahan UI", "File FXML tidak ditemukan: " + fxmlFile);
                 return;
