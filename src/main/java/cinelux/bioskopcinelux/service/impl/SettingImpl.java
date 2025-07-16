@@ -104,7 +104,6 @@ public class SettingImpl implements SettingSrvc {
     }
 
 
-
     @Override
     public int getLastId() {
         int id = 0;

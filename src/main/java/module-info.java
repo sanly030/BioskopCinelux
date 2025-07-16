@@ -11,6 +11,8 @@ module cinelux.bioskopcinelux {
     requires eu.hansolo.tilesfx;
     requires java.sql;
     requires javafx.graphics;
+    requires net.sf.jasperreports.core;
+    requires java.desktop;
 
     opens cinelux.bioskopcinelux to javafx.fxml;
     opens cinelux.bioskopcinelux.controller.menu to javafx.fxml;
@@ -18,6 +20,7 @@ module cinelux.bioskopcinelux {
     opens cinelux.bioskopcinelux.controller.login to javafx.fxml;
     opens cinelux.bioskopcinelux.controller.list to javafx.fxml;
     opens cinelux.bioskopcinelux.controller.transaksi to javafx.fxml;
+    opens cinelux.bioskopcinelux.controller.report to javafx.fxml;
 
 
     exports cinelux.bioskopcinelux;
