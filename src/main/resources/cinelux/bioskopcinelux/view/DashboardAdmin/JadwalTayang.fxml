@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="922.0" prefWidth="1570.0" stylesheets="@../../style/bagan.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinelux.bioskopcinelux.controller.master.JadwalTayangCtrl">
+<AnchorPane prefHeight="922.0" prefWidth="1570.0" stylesheets="@../../style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinelux.bioskopcinelux.controller.master.JadwalTayangCtrl">
    <children>
       <BorderPane prefHeight="922.0" prefWidth="1570.0">
          <right>
@@ -84,7 +84,7 @@
                                  </font>
                               </Label>
                               <TextField fx:id="txtJamSelesai" layoutX="232.0" layoutY="434.0" prefHeight="39.0" prefWidth="143.0" styleClass="textFieldinput" />
-                              <TextField fx:id="txtHarga" layoutX="17.0" layoutY="368.0" prefHeight="39.0" prefWidth="366.0" styleClass="textFieldinput" />
+                              <TextField fx:id="txtHarga" alignment="CENTER_RIGHT" layoutX="17.0" layoutY="368.0" prefHeight="39.0" prefWidth="366.0" styleClass="textFieldinput" />
                               <Label layoutX="18.0" layoutY="340.0" text="Harga">
                                  <font>
                                     <Font name="Segoe UI" size="15.0" />
@@ -191,7 +191,7 @@
                         </Button>
                      </children>
                   </AnchorPane>
-                  <ScrollPane layoutX="27.0" layoutY="203.0" prefHeight="677.0" prefWidth="1083.0" stylesheets="@../../style/bagan.css">
+                  <ScrollPane layoutX="27.0" layoutY="203.0" prefHeight="677.0" prefWidth="1083.0" stylesheets="@../../style/style.css">
                      <content>
                         <VBox fx:id="vbRowTable" prefHeight="78.0" prefWidth="1067.0" style="-fx-background-color: transparent;" />
                      </content>

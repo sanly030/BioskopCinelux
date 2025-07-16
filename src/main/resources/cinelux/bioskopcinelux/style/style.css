@@ -1,0 +1,79 @@
+    .textField {
+        -fx-border-color: #transparent;
+        -fx-text-fill: #674636;
+        -fx-font-size: 15px;
+        -fx-border-width: 0;
+        -fx-border-radius: 15;
+        -fx-background-color: #FFFF;
+        -fx-background-radius: 15;
+    }
+
+    .combo-box-input .list-cell {
+        -fx-background-color : #FFFF;
+        -fx-text-fill: #674636;
+        -fx-border-color: #EDF4F2;
+        -fx-font-size: 16px;
+
+        -fx-background-radius: 5;
+    }
+
+    .combo-box-input .list-cell:hover {
+        -fx-background-color : #674636;
+        -fx-text-fill: #F0EDE4;
+    }
+
+    .combo-box-input {
+        -fx-background-color : #674636;
+        -fx-border-color: #674636;
+        -fx-border-width: 1.5;
+        -fx-background-radius: 10;
+        -fx-border-radius: 10;
+    }
+
+    .scroll-pane{
+        -fx-background-color: transparent;
+        -fx-background-insets: 0;
+        -fx-padding: 0;
+    }
+    .scroll-pane .viewport{
+        -fx-background-color: transparent;
+    }
+
+    .gradient-bg {
+        -fx-background-color: #674636;
+    }
+
+    .radius-bg {
+        -fx-background-radius: 20;
+    }
+
+
+
+    /* Gaya untuk tombol ComboBox */
+    .combo-box {
+        -fx-background-radius: 10;
+        -fx-border-radius: 10;
+        -fx-border-color: #674636;
+        -fx-background-color: #F0EDE4;
+    }
+
+    /* Gaya untuk teks yang muncul di dalam ComboBox */
+    .combo-box .list-cell {
+        -fx-background-radius: 10;
+        -fx-padding: 5px;
+    }
+
+    /* Efek hover pada item list */
+    .combo-box .list-cell:hover {
+        -fx-background-color: #DB9E80;
+        -fx-text-fill: white;
+    }
+
+    /* Gaya untuk daftar drop-down ComboBox */
+    .combo-box-popup .list-view {
+        -fx-background-radius: 10;
+        -fx-border-radius: 10;
+        -fx-border-color: #674636;
+        -fx-background-color: #F0EDE4;
+        -fx-padding: 5;
+    }

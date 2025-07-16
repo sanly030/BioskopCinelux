@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="938.0" style="-fx-background-color: #F0EDE4; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0.3, 1, 1); -fx-padding: 3;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinelux.bioskopcinelux.controller.list.SettingListCtrl">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="1185.0" styleClass="card" stylesheets="@../../style/cardContainer.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinelux.bioskopcinelux.controller.list.SettingListCtrl">
    <children>
       <GridPane prefHeight="44.0" prefWidth="732.0">
          <columnConstraints>
@@ -49,10 +49,10 @@
       </GridPane>
       <HBox prefHeight="44.0" prefWidth="180.0">
          <HBox.margin>
-            <Insets left="20.0" />
+            <Insets left="137.0" />
          </HBox.margin>
          <children>
-            <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#btnUpdateClick" prefHeight="45.0" prefWidth="60.0" style="-fx-background-color: #674636;">
+            <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#btnUpdateClick" prefHeight="45.0" prefWidth="60.0" style="-fx-background-color: #f1c232; -fx-background-radius: 9;">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
@@ -67,7 +67,7 @@
                   <Tooltip text="Edit" />
                </tooltip>
             </Button>
-            <Button fx:id="btnDelete" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnDeleteClick" prefHeight="45.0" prefWidth="60.0" style="-fx-background-color: #674636;">
+            <Button fx:id="btnDelete" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnDeleteClick" prefHeight="45.0" prefWidth="60.0" style="-fx-background-color: #CC0000; -fx-background-radius: 9;">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>

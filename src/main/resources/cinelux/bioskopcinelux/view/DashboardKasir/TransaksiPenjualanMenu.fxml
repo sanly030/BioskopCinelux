@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="919.0" prefWidth="1627.0"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="cinelux.bioskopcinelux.controller.transaksi.PenjualanMenuCtrl"
+            style="-fx-background-color: #FFFDD0;">
+
+    <children>
+        <!-- Menu Items Section -->
+        <VBox layoutX="40.0" layoutY="20.0" prefWidth="1029.0" spacing="15">
+            <children>
+                <!-- Filter Buttons -->
+                <HBox spacing="20" alignment="CENTER_LEFT">
+                    <children>
+                        <Button fx:id="btnMakanan" prefHeight="50.0" prefWidth="180.0"
+                                text="🍔 Makanan" textFill="WHITE"
+                                style="-fx-background-color: #382416; -fx-background-radius: 25; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;">
+                            <font><Font name="Segoe UI Bold" size="16.0" /></font>
+                        </Button>
+                        <Button fx:id="btnMinuman" prefHeight="50.0" prefWidth="180.0"
+                                text="🥤 Minuman" textFill="WHITE"
+                                style="-fx-background-color: #382416; -fx-background-radius: 25; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;">
+                            <font><Font name="Segoe UI Bold" size="16.0" /></font>
+                        </Button>
+                        <Button fx:id="btnAll" prefHeight="50.0" prefWidth="180.0"
+                                text="🍽️ Semua" textFill="WHITE"
+                                style="-fx-background-color: #8B4513; -fx-background-radius: 25; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;">
+                            <font><Font name="Segoe UI Bold" size="16.0" /></font>
+                        </Button>
+                        <TextField fx:id="tfSearch" promptText="Cari"
+                                   style="-fx-background-radius: 25; -fx-background-color: white; -fx-prompt-text-fill: #888; -fx-padding: 10 15; -fx-font-size: 12px;" />
+                    </children>
+                </HBox>
+
+                <!-- Menu Items Grid -->
+                <ScrollPane fx:id="scrollCard" prefHeight="850.0" prefWidth="1029.0"
+                            fitToWidth="true" style="-fx-background-color: transparent;">
+                    <content>
+                        <FlowPane fx:id="flowMenuCard"
+                                  hgap="20.0" vgap="20.0"
+                                  prefWrapLength="1000.0"
+                                  style="-fx-background-color: transparent;">
+                            <padding>
+                                <Insets top="15" right="15" bottom="15" left="15"/>
+                            </padding>
+                        </FlowPane>
+                    </content>
+                </ScrollPane>
+            </children>
+        </VBox>
+
+        <!-- Cart Section -->
+        <VBox layoutX="1100.0" layoutY="20.0" prefWidth="500.0" prefHeight="880.0"
+              style="-fx-background-color: linear-gradient(to bottom, #2C1810, #382416); -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 15, 0, 0, 5);">
+            <children>
+                <!-- Cart Header -->
+                <HBox alignment="CENTER" prefHeight="80.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 20 20 0 0;">
+                    <children>
+                        <Label text="🛒" style="-fx-font-size: 24px;" />
+                        <Label text="Keranjang Belanja" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 20px;">
+                            <font><Font name="Segoe UI Bold" size="20.0"/></font>
+                        </Label>
+                    </children>
+                </HBox>
+
+                <!-- Cart Items -->
+                <ScrollPane fx:id="scrollCart" prefHeight="450.0" fitToWidth="true"
+                            style="-fx-background-color: transparent; -fx-background: transparent;">
+                    <content>
+                        <VBox fx:id="CardContent" spacing="10.0" prefWidth="480.0"
+                              style="-fx-background-color: transparent;">
+                            <padding>
+                                <Insets top="15" right="15" bottom="15" left="15"/>
+                            </padding>
+                            <!-- Empty Cart Message -->
+                            <Label fx:id="lblEmptyCart" text="Keranjang masih kosong"
+                                   style="-fx-text-fill: rgba(255,255,255,0.6); -fx-font-size: 14px; -fx-alignment: center;"
+                                   alignment="CENTER" />
+                        </VBox>
+                    </content>
+                </ScrollPane>
+
+                <!-- Payment Section -->
+                <VBox spacing="15.0" style="-fx-background-color: rgba(0,0,0,0.2); -fx-background-radius: 0 0 20 20;">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+                    <children>
+                        <!-- Total Section -->
+                        <HBox alignment="CENTER" spacing="10.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 10; -fx-padding: 15;">
+                            <children>
+                                <Label text="Total Bayar:" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px;" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label fx:id="labelTotalBayar" text="Rp 0,00"
+                                       style="-fx-text-fill: #FFD700; -fx-font-weight: bold; -fx-font-size: 18px;" />
+                            </children>
+                        </HBox>
+
+                        <!-- Customer Info -->
+                        <VBox spacing="10">
+                            <children>
+                                <Label text="Informasi Pelanggan" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;" />
+                                <ComboBox fx:id="cbPromo" promptText="Pilih Promo (Opsional)"
+                                          prefHeight="35.0" prefWidth="460.0"
+                                          style="-fx-background-radius: 25; -fx-background-color: white; -fx-font-size: 12px;" />
+                            </children>
+                        </VBox>
+
+                        <!-- Payment Method -->
+                        <VBox spacing="10">
+                            <children>
+                                <Label text="Metode Pembayaran" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;" />
+                                <ComboBox fx:id="cbMetodePembayaran" promptText="Pilih Metode Pembayaran"
+                                          prefHeight="35.0" prefWidth="460.0"
+                                          style="-fx-background-radius: 25; -fx-background-color: white; -fx-font-size: 12px;">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="💵 Cash" />
+                                            <String fx:value="📱 QRIS" />
+                                            <String fx:value="💳 Transfer" />
+                                        </FXCollections>
+                                    </items>
+                                </ComboBox>
+                            </children>
+                        </VBox>
+
+                        <!-- Cash Payment -->
+                        <VBox spacing="10">
+                            <children>
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <children>
+                                        <Label text="Uang Tunai:" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;" />
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <TextField fx:id="tfUangBayar" promptText="0"
+                                                   style="-fx-background-radius: 25; -fx-background-color: white; -fx-padding: 8 15; -fx-font-size: 12px; -fx-pref-width: 150;" />
+                                    </children>
+                                </HBox>
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <children>
+                                        <Label text="Kembalian:" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;" />
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <TextField fx:id="tfKembalian" editable="false" promptText="0"
+                                                   style="-fx-background-radius: 25; -fx-background-color: #f0f0f0; -fx-padding: 8 15; -fx-font-size: 12px; -fx-pref-width: 150;" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+
+                        <!-- Payment Button -->
+                        <Button fx:id="btnBayar" text="💳 Proses Pembayaran" prefWidth="460.0" prefHeight="45.0"
+                                style="-fx-background-color: linear-gradient(to right, #4CAF50, #45a049); -fx-background-radius: 25; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-cursor: hand;">
+                            <font><Font name="Segoe UI Bold" size="16.0" /></font>
+                        </Button>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

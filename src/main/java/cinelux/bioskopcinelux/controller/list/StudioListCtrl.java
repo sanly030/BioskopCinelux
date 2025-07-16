@@ -46,10 +46,11 @@ public class StudioListCtrl {
 
     public void setStudio(Studio studio) {
         this.studio = studio;
+
         lbNama.setText(studio.getNama());
         lbKapasitas.setText(String.valueOf(studio.getKapasitas()));
-        lbBaris.setText(String.valueOf(studio.getBaris()));
-        lbKolom.setText(String.valueOf(studio.getKolom()));
+        lbBaris.setText(String.valueOf(studio.getBaris()));  // from Kursi aggregation
+        lbKolom.setText(String.valueOf(studio.getKolom()));  // from Kursi aggregation
 
         int status = studio.getStatus();
         String imgPath;

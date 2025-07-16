@@ -8,10 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface SettingSrvc {
+public interface  SettingSrvc {
     Setting mapResultSetToDetailSetting(ResultSet rs) throws SQLException;
     List<Setting> getAllData();
-    List<Setting> getAllData(String search,String kategori, Integer status, String urutan, String sortBy);
+//    List<Setting> getAllData(String search,String kategori, Integer status, String urutan, String sortBy);
+    List<Setting> getAllData(String search,String kategori, Integer status);
     Setting getById(int id);
     int getLastId();
     OperationResult insertData(Setting Setting);

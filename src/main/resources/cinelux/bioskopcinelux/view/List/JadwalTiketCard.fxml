@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <?import javafx.geometry.Insets?>
+    <?import javafx.scene.control.Button?>
+    <?import javafx.scene.control.Label?>
+    <?import javafx.scene.image.ImageView?>
+    <?import javafx.scene.layout.AnchorPane?>
+    <?import javafx.scene.layout.HBox?>
+    <?import javafx.scene.layout.VBox?>
+
+    <AnchorPane prefHeight="300" prefWidth="260" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 8, 0, 0, 4); -fx-cursor: hand;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="cinelux.bioskopcinelux.controller.list.JadwalCardCtrl">
+        <children>
+            <VBox alignment="TOP_CENTER" prefWidth="260" spacing="10" style="-fx-padding: 15;">
+                <children>
+
+                    <!-- Poster Film -->
+                    <ImageView fx:id="imgPoster" fitHeight="150" fitWidth="200" preserveRatio="true" />
+
+                    <!-- Judul Film -->
+                    <Label fx:id="lblJudul" style="-fx-font-size: 16px; -fx-font-family: 'Segoe UI Semibold'; -fx-text-fill: #2c2c2c;" wrapText="true" />
+
+                    <!-- Studio -->
+                    <Label fx:id="lblStudio" style="-fx-font-size: 13px; -fx-font-family: 'Segoe UI'; -fx-text-fill: #555555;" />
+
+                    <!-- Jam & Harga -->
+                    <HBox alignment="CENTER_LEFT" spacing="20">
+                        <children>
+                            <Label fx:id="lblJam" style="-fx-font-size: 14px; -fx-font-family: 'Segoe UI Bold'; -fx-text-fill: #382416;" />
+                            <Label fx:id="lblHarga" style="-fx-font-size: 14px; -fx-font-family: 'Segoe UI Bold'; -fx-text-fill: #382416;">
+                         <HBox.margin>
+                            <Insets left="35.0" />
+                         </HBox.margin></Label>
+                        </children>
+                    </HBox>
+
+                    <!-- Tombol Aksi -->
+                    <Button fx:id="btnBeli" style="-fx-background-color: #382416; -fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 13px; -fx-background-radius: 10; -fx-padding: 8 15 8 15;" text="Beli Tiket" />
+                </children>
+            </VBox>
+        </children>
+    </AnchorPane>

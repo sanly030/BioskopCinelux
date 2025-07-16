@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="922.0" prefWidth="1570.0" stylesheets="@../../style/bagan.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinelux.bioskopcinelux.controller.master.PromoCtrl">
+<AnchorPane prefHeight="922.0" prefWidth="1570.0" stylesheets="@../../style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinelux.bioskopcinelux.controller.master.PromoCtrl">
    <children>
       <BorderPane prefHeight="922.0" prefWidth="1570.0">
          <right>
@@ -179,7 +179,7 @@
                         </Button>
                      </children>
                   </AnchorPane>
-                  <ScrollPane layoutX="32.0" layoutY="200.0" prefHeight="677.0" prefWidth="980.0" stylesheets="@../../style/bagan.css">
+                  <ScrollPane layoutX="32.0" layoutY="200.0" prefHeight="677.0" prefWidth="980.0" stylesheets="@../../style/style.css">
                      <content>
                         <VBox fx:id="vbRowTable" prefHeight="78.0" prefWidth="947.0" style="-fx-background-color: transparent;" />
                      </content>

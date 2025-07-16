@@ -1,14 +1,13 @@
 package cinelux.bioskopcinelux.service.impl;
 
-import cinelux.bioskopcinelux.model.Menu;
 import cinelux.bioskopcinelux.connection.DBConnect;
+import cinelux.bioskopcinelux.model.Menu;
 import cinelux.bioskopcinelux.model.Role;
 import cinelux.bioskopcinelux.model.Setting;
 import cinelux.bioskopcinelux.service.MenuSrvc;
 import cinelux.bioskopcinelux.service.SettingSrvc;
 import cinelux.bioskopcinelux.util.OperationResult;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,8 +15,7 @@ import java.util.List;
 
 public class MenuImpl implements MenuSrvc {
 
-//    DBConnect connect = new DBConnect();
-    private SettingSrvc settingService = new SettingImpl(); // untuk ambil data jenis makanan
+    private SettingSrvc settingService = new SettingImpl();
 
     @Override
     public Menu mapResultSetToDetailSetting(ResultSet rs) throws SQLException {
@@ -37,6 +35,7 @@ public class MenuImpl implements MenuSrvc {
                 rs.getString("mnu_nama"),
                 rs.getInt("mnu_stok"),
                 rs.getDouble("mnu_harga"),
+                rs.getString("mnu_gambar"), // tambahan mapping gambar
                 rs.getInt("mnu_status"),
                 rs.getString("mnu_created_by"),
                 rs.getString("mnu_modif_by")
@@ -119,42 +118,42 @@ public class MenuImpl implements MenuSrvc {
     public OperationResult insertData(Menu m) {
         DBConnect connect = new DBConnect();
         try {
-            String sql = "{CALL sp_InsertMenu(?, ?, ?, ?, ?, ?)}";
+            String sql = "{CALL sp_InsertMenu(?, ?, ?, ?, ?, ?, ?)}";
             connect.pstat = connect.conn.prepareCall(sql);
-            connect.pstat.setString(1, null); // atau bisa pakai gambar jika ada, sementara null
-            connect.pstat.setInt(2, m.getJenis_makanan().getId());
-            connect.pstat.setString(3, m.getNama());
-            connect.pstat.setInt(4, m.getStok());
-            connect.pstat.setDouble(5, m.getHarga());
-            connect.pstat.setString(6,
-                    (m.getCreatedBy() != null && !m.getCreatedBy().isEmpty())
-                            ? m.getCreatedBy()
-                            : "Admin");
 
-
+            connect.pstat.setInt(1, m.getJenis_makanan().getId());
+            connect.pstat.setString(2, m.getNama());
+            connect.pstat.setInt(3, m.getStok()); // ✅ TAMBAH INI
+            connect.pstat.setDouble(4, m.getHarga());
+            connect.pstat.setString(5, m.getGambar());
+            connect.pstat.setInt(6, m.getStatus());
+            connect.pstat.setString(7, m.getCreatedBy() != null ? m.getCreatedBy() : "Admin");
 
             connect.pstat.execute();
             return OperationResult.success("Menu berhasil ditambahkan.");
         } catch (SQLException e) {
             return OperationResult.failure("Gagal tambah menu: " + e.getMessage());
         } finally {
-            closeConnection(connect); // tambahkan parameter
+            closeConnection(connect);
         }
     }
-
 
     @Override
     public OperationResult updateData(Menu m) {
         DBConnect connect = new DBConnect();
         try {
-            String sql = "{CALL sp_UpdateMenu(?, ?, ?, ?, ?, ?)}";
+            String sql = "{CALL sp_UpdateMenu(?, ?, ?, ?, ?, ?, ?)}";
             connect.pstat = connect.conn.prepareCall(sql);
+
             connect.pstat.setInt(1, m.getId());
-            connect.pstat.setInt(2, m.getJenis_makanan().getId());
-            connect.pstat.setString(3, m.getNama());
-            connect.pstat.setInt(4, m.getStok());
-            connect.pstat.setDouble(5, m.getHarga());
-            connect.pstat.setString(6, m.getModifiedBy());
+            connect.pstat.setString(2, m.getNama());
+            connect.pstat.setInt(3, m.getStok()); // ✅ TAMBAH PARAMETER STOK
+            connect.pstat.setDouble(4, m.getHarga());
+            connect.pstat.setString(5, m.getGambar());
+            connect.pstat.setInt(6, m.getStatus());
+            connect.pstat.setString(7,
+                    (m.getModifiedBy() != null && !m.getModifiedBy().isEmpty()) ? m.getModifiedBy() : "Admin"
+            );
 
             connect.pstat.execute();
             return OperationResult.success("Menu berhasil diperbarui.");
@@ -172,7 +171,7 @@ public class MenuImpl implements MenuSrvc {
             String sql = "{CALL sp_DeleteMenu(?, ?)}";
             connect.pstat = connect.conn.prepareCall(sql);
             connect.pstat.setInt(1, id);
-            connect.pstat.setString(2, Role.getNama()); // nama pengguna login
+            connect.pstat.setString(2, Role.getNama());
 
             connect.pstat.execute();
             return OperationResult.success("Status menu berhasil diubah.");
@@ -210,7 +209,4 @@ public class MenuImpl implements MenuSrvc {
             System.out.println("Gagal menutup koneksi MenuImpl: " + e.getMessage());
         }
     }
-
-
 }
-

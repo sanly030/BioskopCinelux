@@ -54,7 +54,7 @@ public class KaryawanCtrl implements Initializable {
     @FXML
     private TextField txtId, txtNama, txtNoTelp, txtPassword, txtSearch, txtUsername;
     @FXML
-    private VBox vbRowTable;
+    private VBox vbRowTable, vbFilter;;
 
     private ScheduledExecutorService searchExecutor;
     private ScheduledFuture<?> searchTask;
@@ -94,7 +94,6 @@ public class KaryawanCtrl implements Initializable {
         });
 
 
-
         searchExecutor = Executors.newSingleThreadScheduledExecutor();
         txtId.setText(String.valueOf(karyawanImpl.getLastId() + 1));
 
@@ -124,7 +123,8 @@ public class KaryawanCtrl implements Initializable {
     }
 
     private void loadRoleComboBox() {
-        roleList = settingImpl.getAllData(null, "Role", 1, null, null);
+//        roleList = settingImpl.getAllData(null, "Role", 1, null, null);
+        roleList = settingImpl.getAllData(null, "Role", 1);
         cmbRole.getItems().clear();
         for (Setting role : roleList) {
             cmbRole.getItems().add(role.getNama());
@@ -395,4 +395,8 @@ public class KaryawanCtrl implements Initializable {
     @FXML
     void handleBtnClearClicked(ActionEvent event) {clearForm();}
 
+    @FXML
+    void handleBtnFilterClick(ActionEvent event) {
+        vbFilter.setVisible(!vbFilter.isVisible());
+    }
 }

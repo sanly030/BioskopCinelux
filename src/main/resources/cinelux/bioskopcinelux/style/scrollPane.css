@@ -1,0 +1,46 @@
+/* SCROLLPANE UTAMA */
+.custom-scroll {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.custom-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* SEMBUNYIKAN SCROLLBAR HORIZONTAL */
+.custom-scroll .scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-max-height: 0;
+}
+
+/* SCROLLBAR VERTIKAL */
+.custom-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+/* THUMB SCROLL (tombol geser) */
+.custom-scroll .scroll-bar:vertical .thumb {
+    /*-fx-background-color: rgba(103, 70, 54, 0.6); !* warna coklat semi transparan *!*/
+    -fx-background-color:  #674636;
+    -fx-background-radius: 6px;
+    -fx-padding: 2px;
+}
+
+/* SEMBUNYIKAN PANAH ATAS BAWAH */
+.custom-scroll .increment-button,
+.custom-scroll .decrement-button {
+    -fx-padding: 0;
+    -fx-shape: "";
+    -fx-background-color: transparent;
+    -fx-opacity: 0;
+    -fx-max-height: 0;
+}
+
+/* VBOX DI DALAM VIEWPORT (ISI CARD-CARD) */
+.custom-scroll .viewport > .vbox {
+    -fx-padding: 10px;
+    -fx-spacing: 15px; /* jarak antar card */
+    -fx-background-color: transparent;
+}

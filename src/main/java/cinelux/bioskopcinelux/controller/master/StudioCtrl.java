@@ -85,8 +85,9 @@ public class StudioCtrl implements Initializable {
             calculateCapacity();
         });
         searchExecutor = Executors.newSingleThreadScheduledExecutor();
-        txtId.setText(String.valueOf(studioImpl.getLastId() + 1));
         txtId.setEditable(false);
+        txtId.setText(String.valueOf(studioImpl.getLastId() + 1));
+
 
         cmbFilterStatus.getItems().addAll("Aktif", "Tidak Aktif");
         cmbFilterStatus.getSelectionModel().select("Aktif");
@@ -185,46 +186,12 @@ public class StudioCtrl implements Initializable {
         }
     }
 
-    // Method untuk update studio dengan kursi
-    public OperationResult updateStudioWithKursi(Studio studio) {
-        try {
-            // Menggunakan method yang ada di StudioImpl
-            OperationResult result = studioImpl.updateStudioWithKursi(studio);
-            return result;
-        } catch (Exception e) {
-            return OperationResult.failure("Gagal memperbarui studio: " + e.getMessage());
-        }
-    }
-
     @FXML
     void handleBtnClearClick(ActionEvent event) {
         clearInputFields();
         selectedStudio = null;
         btnTambah.setVisible(true);
         btnUpdate.setVisible(false);
-    }
-
-    private void calculateCapacity() {
-        try {
-            String barisText = txtBaris.getText().trim();
-            String kolomText = txtKolom.getText().trim();
-
-            if (!barisText.isEmpty() && !kolomText.isEmpty()) {
-                int baris = Integer.parseInt(barisText);
-                int kolom = Integer.parseInt(kolomText);
-
-                if (baris > 0 && kolom > 0) {
-                    int kapasitas = baris * kolom;
-                    txtKapasitas.setText(String.valueOf(kapasitas));
-                } else {
-                    txtKapasitas.setText("");
-                }
-            } else {
-                txtKapasitas.setText("");
-            }
-        } catch (NumberFormatException e) {
-            txtKapasitas.setText("");
-        }
     }
 
     @FXML
@@ -257,12 +224,14 @@ public class StudioCtrl implements Initializable {
                 return;
             }
 
-            // Kapasitas sudah otomatis terhitung, ambil dari field
-            int kapasitas = Integer.parseInt(txtKapasitas.getText());
+            // Hitung kapasitas otomatis
+            int kapasitas = baris * kolom;
+            txtKapasitas.setText(String.valueOf(kapasitas)); // Optional: show it in the UI
 
+            // Ambil user login
             String usr = (user.getName() == null) ? "Admin" : user.getName();
 
-            // Buat object Studio menggunakan constructor
+            // Buat objek Studio
             Studio studio = new Studio(null, namaStudio, baris, kolom, kapasitas, 1, usr, null);
 
             // Panggil method insert
@@ -280,6 +249,17 @@ public class StudioCtrl implements Initializable {
             showAlert("Error", "Format angka tidak valid untuk baris atau kolom!");
         } catch (Exception e) {
             showAlert("Error", "Terjadi kesalahan: " + e.getMessage());
+        }
+    }
+
+    // Method untuk update studio dengan kursi
+    public OperationResult updateStudioWithKursi(Studio studio) {
+        try {
+            // Menggunakan method yang ada di StudioImpl
+            OperationResult result = studioImpl.updateStudioWithKursi(studio);
+            return result;
+        } catch (Exception e) {
+            return OperationResult.failure("Gagal memperbarui studio: " + e.getMessage());
         }
     }
 
@@ -340,8 +320,17 @@ public class StudioCtrl implements Initializable {
             String usr = (user.getName() == null) ? "Admin" : user.getName();
 
             // Buat object Studio untuk update
-            Studio studio = new Studio(selectedStudio.getId(), namaStudio, kapasitas, baris, kolom,
-                    selectedStudio.getStatus(), usr);
+            // ✅ Benar urutan: baris, kolom, kapasitas
+            Studio studio = new Studio(
+                    selectedStudio.getId(),
+                    namaStudio,
+                    baris,
+                    kolom,
+                    kapasitas,
+                    selectedStudio.getStatus(),
+                    null,
+                    usr
+            );
 
             // Panggil method update
             OperationResult result = updateStudioWithKursi(studio);
@@ -361,6 +350,29 @@ public class StudioCtrl implements Initializable {
             showAlert("Error", "Format angka tidak valid untuk baris atau kolom!");
         } catch (Exception e) {
             showAlert("Error", "Terjadi kesalahan: " + e.getMessage());
+        }
+    }
+
+    private void calculateCapacity() {
+        try {
+            String barisText = txtBaris.getText().trim();
+            String kolomText = txtKolom.getText().trim();
+
+            if (!barisText.isEmpty() && !kolomText.isEmpty()) {
+                int baris = Integer.parseInt(barisText);
+                int kolom = Integer.parseInt(kolomText);
+
+                if (baris > 0 && kolom > 0) {
+                    int kapasitas = baris * kolom;
+                    txtKapasitas.setText(String.valueOf(kapasitas));
+                } else {
+                    txtKapasitas.setText("");
+                }
+            } else {
+                txtKapasitas.setText("");
+            }
+        } catch (NumberFormatException e) {
+            txtKapasitas.setText("");
         }
     }
 

@@ -8,33 +8,34 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface JadwalTayangSrvc {
+
     // Mapping dari ResultSet ke objek JadwalTayang
     JadwalTayang mapResultSetToJadwalTayang(ResultSet rs) throws SQLException;
 
-    // Ambil semua data jadwal tayang
+    // Ambil semua data jadwal tayang (tanpa filter)
     List<JadwalTayang> getAllData();
 
-    // Ambil semua data dengan filter
+    // Ambil semua data jadwal tayang dengan filter pencarian
     List<JadwalTayang> getAllData(String search, String jenisHari, Integer status, String urutan, String sortBy);
 
     // Ambil data berdasarkan ID
     JadwalTayang getById(int id);
 
-    // Ambil ID terakhir (biasanya untuk generate ID baru)
+    // Ambil ID terakhir yang di-generate
     int getLastId();
 
-    // Insert data baru
+    // Tambah jadwal tayang baru
     OperationResult insertData(JadwalTayang jadwalTayang);
 
-    // Hapus data jadwal tayang
-    OperationResult deleteData(int id, String modifiedby);
+    // Hapus data jadwal tayang (soft delete atau hard delete)
+    OperationResult deleteData(int id, String modifiedBy);
 
     // Update data jadwal tayang
     OperationResult updateData(JadwalTayang jadwalTayang);
 
-    // Toggle status aktif/nonaktif
+    // Ubah status aktif/nonaktif jadwal tayang
     OperationResult toogleStatus(int id);
 
-    // Cek bentrok jadwal berdasarkan studio dan jam
+    // Cek apakah jadwal bentrok berdasarkan studio dan waktu tayang
     boolean isJadwalBentrok(String jamMulai, String jamSelesai, int idStudio);
 }

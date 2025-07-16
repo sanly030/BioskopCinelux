@@ -76,6 +76,15 @@ public class Promo {
     public String getTipe_promo() {return tipe_promo;}
     public void setTipe_promo(String tipe_promo) {this.tipe_promo = tipe_promo;}
     public Double getDiskon() {return diskon;}
+
+    public void setDiskon(Double diskon) {
+        this.diskon = diskon;
+    }
+
+    public void setTanggal_mulai(Date tanggal_mulai) {
+        this.tanggal_mulai = tanggal_mulai;
+    }
+
     public Date getTanggal_mulai() {return tanggal_mulai;}
     public Date getTanggal_selesai() {return tanggal_selesai;}
     public void setTanggal_selesai(Date tanggal_selesai) {this.tanggal_selesai = tanggal_selesai;}

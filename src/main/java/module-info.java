@@ -17,10 +17,13 @@ module cinelux.bioskopcinelux {
     opens cinelux.bioskopcinelux.controller.master to javafx.fxml;
     opens cinelux.bioskopcinelux.controller.login to javafx.fxml;
     opens cinelux.bioskopcinelux.controller.list to javafx.fxml;
+    opens cinelux.bioskopcinelux.controller.transaksi to javafx.fxml;
 
 
     exports cinelux.bioskopcinelux;
     exports cinelux.bioskopcinelux.controller.menu;
     exports cinelux.bioskopcinelux.controller.list;
+    exports cinelux.bioskopcinelux.controller.cart;
+    opens cinelux.bioskopcinelux.controller.cart to javafx.fxml;
 
 }

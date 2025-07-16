@@ -1,3 +1,6 @@
+// File: JadwalTayangCtrl.java
+// Note: Pastikan class JadwalTayang menerima harga sebagai double atau BigDecimal sesuai kebutuhan.
+
 package cinelux.bioskopcinelux.controller.master;
 
 import cinelux.bioskopcinelux.controller.list.JadwalTayangListCtrl;
@@ -10,6 +13,8 @@ import cinelux.bioskopcinelux.service.impl.StudioImpl;
 import cinelux.bioskopcinelux.service.impl.JadwalTayangImpl;
 import cinelux.bioskopcinelux.util.MessageBox;
 import cinelux.bioskopcinelux.util.OperationResult;
+import cinelux.bioskopcinelux.util.RupiahFormatter;
+
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -21,10 +26,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Time;
-import java.sql.Date;
-import java.text.NumberFormat;
+import java.text.ParseException;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.*;
@@ -34,7 +39,6 @@ public class JadwalTayangCtrl implements Initializable {
     @FXML private Button btnClear, btnFilter, btnSortHapus, btnTambah, btnUpdate, tnHapusFilter;
     @FXML private ComboBox<String> cmbFilm, cmbStudio, cmbHari, cmbFilterKategori, cmbFilterStatus, cmbSortBerdasarkan, cmbSortUrutan;
     @FXML private TextField txtId, txtJamMulai, txtJamSelesai, txtHarga, txtSearch;
-    @FXML private DatePicker dpTanggal;
     @FXML private VBox vbRowTable;
 
     private final JadwalTayangImpl jadwalTayangImpl = new JadwalTayangImpl();
@@ -52,27 +56,26 @@ public class JadwalTayangCtrl implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         searchExecutor = Executors.newSingleThreadScheduledExecutor();
 
-        // Tampilkan ID yang akan digunakan selanjutnya (read-only)
         txtId.setText(String.valueOf(jadwalTayangImpl.getLastId() + 1));
-        txtId.setEditable(false); // Buat read-only karena auto-increment
+        txtId.setEditable(false);
 
         setupTimeFormatter(txtJamMulai);
         setupTimeFormatter(txtJamSelesai);
         setupHargaFormatter();
 
         txtSearch.textProperty().addListener((obs, oldVal, newVal) -> delaySearch());
+        cmbFilterStatus.setItems(FXCollections.observableArrayList("Aktif", "Tidak Aktif"));
+        cmbFilterStatus.getSelectionModel().select("Aktif");
+        cmbFilterKategori.setItems(FXCollections.observableArrayList("Film", "Studio", "Hari"));
+        cmbSortBerdasarkan.setItems(FXCollections.observableArrayList("Film", "Studio", "Tanggal"));
+        cmbSortUrutan.setItems(FXCollections.observableArrayList("Menaik", "Menurun"));
+        cmbSortUrutan.getSelectionModel().select("Menurun");
+        cmbHari.setItems(FXCollections.observableArrayList("Weekend", "Weekdays"));
+
         cmbFilterStatus.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> delaySearch());
         cmbFilterKategori.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> delaySearch());
         cmbSortBerdasarkan.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> delaySearch());
         cmbSortUrutan.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> delaySearch());
-
-        cmbFilterStatus.setItems(FXCollections.observableArrayList("Aktif", "Tidak Aktif"));
-        cmbFilterStatus.getSelectionModel().select("Aktif");
-        cmbSortBerdasarkan.setItems(FXCollections.observableArrayList("Film", "Studio", "Tanggal"));
-        cmbSortUrutan.setItems(FXCollections.observableArrayList("Menaik", "Menurun"));
-        cmbSortUrutan.getSelectionModel().select("Menurun");
-        cmbHari.setItems(FXCollections.observableArrayList("Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"));
-        cmbFilterKategori.setItems(FXCollections.observableArrayList("Film", "Studio", "Hari"));
 
         loadFilmComboBox();
         loadStudioComboBox();
@@ -89,71 +92,90 @@ public class JadwalTayangCtrl implements Initializable {
     }
 
     private void setupHargaFormatter() {
-        NumberFormat rupiahFormat = NumberFormat.getCurrencyInstance(new Locale("in", "ID"));
-        rupiahFormat.setMaximumFractionDigits(0);
-
         UnaryOperator<TextFormatter.Change> filter = change -> {
-            String newText = change.getControlNewText().replaceAll("[^\\d]", "");
-            if (newText.isEmpty()) return change;
+            String newText = change.getControlNewText();
+
+            // Pastikan selalu diawali dengan "Rp "
+            if (!newText.startsWith("Rp ")) {
+                return null; // Tolak perubahan
+            }
+
+            // Ambil hanya digit angka setelah "Rp "
+            String digitsOnly = newText.replaceAll("[^\\d]", "");
+            if (digitsOnly.isEmpty()) {
+                change.setText("Rp ");
+                change.setRange(0, change.getControlText().length());
+                return change;
+            }
+
             try {
-                long value = Long.parseLong(newText);
-                String formatted = rupiahFormat.format(value);
+                double value = Double.parseDouble(digitsOnly);
+                String formatted = "Rp " + RupiahFormatter.formatWithSeparator(value);
                 change.setText(formatted);
                 change.setRange(0, change.getControlText().length());
-                change.setCaretPosition(formatted.length());
-                change.setAnchor(formatted.length());
                 return change;
             } catch (NumberFormatException e) {
                 return null;
             }
         };
-        txtHarga.setTextFormatter(new TextFormatter<>(filter));
+
+        TextFormatter<String> textFormatter = new TextFormatter<>(filter);
+        txtHarga.setTextFormatter(textFormatter);
+        txtHarga.setText("Rp ");
+    }
+
+    private double getHargaValue() throws ParseException {
+        String text = txtHarga.getText();
+        return RupiahFormatter.parseRupiahToNumber(text);
+    }
+
+
+    private void setHargaValue(double value) {
+        txtHarga.setText("Rp " + RupiahFormatter.formatWithSeparator(value));
     }
 
     private void loadFilmComboBox() {
         filmList = filmImpl.getAllData(null, null, 1, null, null);
-        cmbFilm.getItems().clear();
-        for (Film film : filmList) cmbFilm.getItems().add(film.getJudul());
+        cmbFilm.setItems(FXCollections.observableArrayList(
+                filmList.stream().map(Film::getJudul).toList()
+        ));
     }
 
     private void loadStudioComboBox() {
         studioList = studioImpl.getAllData(null, 1, null, null);
-        cmbStudio.getItems().clear();
-        for (Studio studio : studioList) cmbStudio.getItems().add(studio.getNama());
+        cmbStudio.setItems(FXCollections.observableArrayList(
+                studioList.stream().map(Studio::getNama).toList()
+        ));
     }
 
     private void delaySearch() {
         if (searchTask != null && !searchTask.isDone()) searchTask.cancel(true);
         searchTask = searchExecutor.schedule(() -> Platform.runLater(() -> {
             String search = txtSearch.getText();
-            String kategori = cmbFilterKategori.getSelectionModel().getSelectedItem();
-            Integer status = cmbFilterStatus.getSelectionModel().getSelectedItem().equals("Aktif") ? 1 : 0;
-            String urutan = cmbSortUrutan.getSelectionModel().getSelectedItem().equals("Menaik") ? "ASC" : "DESC";
-            String sortBy = cmbSortBerdasarkan.getSelectionModel().getSelectedItem();
+            String kategori = cmbFilterKategori.getValue();
+            Integer status = cmbFilterStatus.getValue().equals("Aktif") ? 1 : 0;
+            String urutan = cmbSortUrutan.getValue().equals("Menaik") ? "ASC" : "DESC";
+            String sortBy = cmbSortBerdasarkan.getValue();
             loadDetailsToTable(search, kategori, status, urutan, sortBy);
         }), 500, TimeUnit.MILLISECONDS);
     }
 
-    private void loadDetailsToTable(String search, String kategori, Integer status, String urutan, String sortBy) {
+    private void loadDetailsToTable(String search, String jenisHari, Integer status, String urutan, String sortBy) {
         vbRowTable.getChildren().clear();
-        List<JadwalTayang> list = jadwalTayangImpl.getAllData(search, kategori, status, urutan, sortBy);
-
+        List<JadwalTayang> list = jadwalTayangImpl.getAllData(search, jenisHari, status, urutan, sortBy);
         if (list.isEmpty()) {
             vbRowTable.getChildren().add(new Label("Tidak ada data ditemukan."));
             return;
         }
-
-        String fxmlPath = "/cinelux/bioskopcinelux/view/List/JadwalTayangList.fxml";
         for (JadwalTayang j : list) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/cinelux/bioskopcinelux/view/List/JadwalTayangList.fxml"));
                 Parent node = loader.load();
                 JadwalTayangListCtrl ctrl = loader.getController();
                 ctrl.setData(j);
                 ctrl.setJadwalController(this);
                 vbRowTable.getChildren().add(node);
             } catch (IOException e) {
-                e.printStackTrace();
                 System.err.println("Gagal load: " + e.getMessage());
             }
         }
@@ -162,51 +184,33 @@ public class JadwalTayangCtrl implements Initializable {
     @FXML
     void handleBtnInsertClick(ActionEvent e) {
         if (!validateInput()) return;
-
-        String filmNama = cmbFilm.getValue();
-        String studioNama = cmbStudio.getValue();
-        Film film = filmList.stream().filter(f -> f.getJudul().equals(filmNama)).findFirst().orElse(null);
-        Studio studio = studioList.stream().filter(s -> s.getNama().equals(studioNama)).findFirst().orElse(null);
-
-        if (film == null || studio == null) {
-            msg.alertWarning("Film atau Studio tidak valid.");
-            return;
-        }
-
         try {
-            // Fixed: Add validation for time format before converting
-            String jamMulaiText = txtJamMulai.getText().trim();
-            String jamSelesaiText = txtJamSelesai.getText().trim();
-
-            // Add seconds if not present
-            if (!jamMulaiText.contains(":")) {
-                jamMulaiText += ":00";
-            } else if (jamMulaiText.split(":").length == 2) {
-                jamMulaiText += ":00";
-            }
-
-            if (!jamSelesaiText.contains(":")) {
-                jamSelesaiText += ":00";
-            } else if (jamSelesaiText.split(":").length == 2) {
-                jamSelesaiText += ":00";
-            }
-
-            Time mulai = Time.valueOf(jamMulaiText);
-            Time selesai = Time.valueOf(jamSelesaiText);
-
-            // Validate time logic
-            if (mulai.compareTo(selesai) >= 0) {
-                msg.alertWarning("Jam mulai harus lebih awal dari jam selesai.");
+            Film film = filmList.stream().filter(f -> f.getJudul().equals(cmbFilm.getValue())).findFirst().orElse(null);
+            Studio studio = studioList.stream().filter(s -> s.getNama().equals(cmbStudio.getValue())).findFirst().orElse(null);
+            if (film == null || studio == null) {
+                msg.alertWarning("Film atau Studio tidak valid.");
                 return;
             }
-
-            Double harga = Double.parseDouble(txtHarga.getText().replaceAll("[^\\d]", ""));
-            String hari = cmbHari.getValue();
+            Time mulai = Time.valueOf(txtJamMulai.getText() + ":00");
+            Time selesai = Time.valueOf(txtJamSelesai.getText() + ":00");
+            double harga = getHargaValue();
+            if (harga <= 0) {
+                msg.alertWarning("Harga tiket harus lebih dari 0.");
+                return;
+            }
             String usr = user.getName() == null ? "Admin" : user.getName();
+            JadwalTayang jadwal = new JadwalTayang(
+                    film,
+                    studio,
+                    mulai,
+                    selesai,
+                    cmbHari.getValue(),
+                    new BigDecimal(harga),  // <-- Konversi double ke BigDecimal
+                    1,
+                    usr
+            );
 
-            JadwalTayang jadwal = new JadwalTayang(null, film, studio, mulai, selesai, hari, harga, 1, usr);
             OperationResult result = jadwalTayangImpl.insertData(jadwal);
-
             if (result.isSuccess()) {
                 msg.alertInfo(result.getMessage());
                 delaySearch();
@@ -214,64 +218,65 @@ public class JadwalTayangCtrl implements Initializable {
             } else {
                 msg.alertError(result.getMessage());
             }
-        } catch (IllegalArgumentException ex) {
-            msg.alertError("Format waktu tidak valid. Gunakan format HH:MM");
         } catch (Exception ex) {
-            msg.alertError("Data tidak valid: " + ex.getMessage());
+            msg.alertError("Error: " + ex.getMessage());
         }
     }
 
     @FXML
     void handleBtnUpdateClick(ActionEvent e) {
         if (!validateInput()) return;
-
         try {
             int id = Integer.parseInt(txtId.getText());
-            String filmNama = cmbFilm.getValue();
-            String studioNama = cmbStudio.getValue();
-            Film film = filmList.stream().filter(f -> f.getJudul().equals(filmNama)).findFirst().orElse(null);
-            Studio studio = studioList.stream().filter(s -> s.getNama().equals(studioNama)).findFirst().orElse(null);
+            Film film = filmList.stream().filter(f -> f.getJudul().equals(cmbFilm.getValue())).findFirst().orElse(null);
+            Studio studio = studioList.stream().filter(s -> s.getNama().equals(cmbStudio.getValue())).findFirst().orElse(null);
             Time mulai = Time.valueOf(txtJamMulai.getText() + ":00");
             Time selesai = Time.valueOf(txtJamSelesai.getText() + ":00");
-            Double harga = Double.parseDouble(txtHarga.getText().replaceAll("[^\\d]", ""));
-            String hari = cmbHari.getValue();
+            double harga = getHargaValue();
             String usr = user.getName() == null ? "Admin" : user.getName();
+            JadwalTayang jadwal = new JadwalTayang(
+                    id,
+                    film,
+                    studio,
+                    mulai,
+                    selesai,
+                    cmbHari.getValue(),
+                    new BigDecimal(harga),  // <-- Konversi double ke BigDecimal
+                    1,
+                    usr
+            );
 
-            JadwalTayang jadwal = new JadwalTayang(id, film, studio, mulai, selesai, hari, harga, 1, usr);
             OperationResult result = jadwalTayangImpl.updateData(jadwal);
-
             if (result.isSuccess()) {
                 msg.alertInfo(result.getMessage());
                 delaySearch();
                 clearForm();
-            } else msg.alertError(result.getMessage());
+            } else {
+                msg.alertError(result.getMessage());
+            }
         } catch (Exception ex) {
-            msg.alertError("Data tidak valid: " + ex.getMessage());
+            msg.alertError("Error: " + ex.getMessage());
         }
     }
 
     private boolean validateInput() {
         if (cmbFilm.getValue() == null || cmbStudio.getValue() == null ||
                 txtJamMulai.getText().isEmpty() || txtJamSelesai.getText().isEmpty() ||
-                txtHarga.getText().isEmpty() || cmbHari.getValue() == null) {
-            msg.alertWarning("Semua field harus diisi.");
+                txtHarga.getText().isEmpty() || cmbHari.getValue() == null ||
+                !RupiahFormatter.isValidNumber(txtHarga.getText())) {
+            msg.alertWarning("Harap lengkapi semua field dengan benar.");
             return false;
         }
         return true;
     }
 
-    @FXML
-    void handleBtnClearClick(ActionEvent event) {
-        clearForm();
-    }
-
-    private void clearForm() {
+    public void clearForm() {
         cmbFilm.getSelectionModel().clearSelection();
         cmbStudio.getSelectionModel().clearSelection();
         cmbHari.getSelectionModel().clearSelection();
         txtJamMulai.clear();
         txtJamSelesai.clear();
-        txtHarga.clear();
+        txtHarga.setText("Rp ");
         txtId.setText(String.valueOf(jadwalTayangImpl.getLastId() + 1));
         btnUpdate.setVisible(false);
         btnTambah.setVisible(true);
@@ -283,52 +288,48 @@ public class JadwalTayangCtrl implements Initializable {
             msg.alertError("Data tidak ditemukan.");
             return;
         }
-
         txtId.setText(String.valueOf(jadwal.getId()));
         cmbFilm.getSelectionModel().select(jadwal.getNamaFilm().getJudul());
         cmbStudio.getSelectionModel().select(jadwal.getNamaStudio().getNama());
         txtJamMulai.setText(jadwal.getJamMulai().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
         txtJamSelesai.setText(jadwal.getJamSelesai().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
-        txtHarga.setText(NumberFormat.getCurrencyInstance(new Locale("in", "ID")).format(jadwal.getHarga()));
+        setHargaValue(jadwal.getHarga().doubleValue());
         cmbHari.getSelectionModel().select(jadwal.getJenisHari());
-
         btnTambah.setVisible(false);
         btnUpdate.setVisible(true);
     }
 
-    public void toogleStatusJadwal(int id) {
-        JadwalTayang jadwal = jadwalTayangImpl.getById(id);
-        if (jadwal == null) {
-            msg.alertWarning("Data tidak ditemukan.");
+    public void toogleStatusJadwal(Integer id) {
+        if (id == null) {
+            msg.alertWarning("ID jadwal tidak boleh kosong.");
             return;
         }
+        JadwalTayang jadwal = jadwalTayangImpl.getById(id);
+        if (jadwal == null) {
+            msg.alertError("Jadwal tidak ditemukan.");
+            return;
+        }
+        int newStatus = jadwal.getStatus() == 1 ? 0 : 1;
+        jadwal.setStatus(newStatus);
+        jadwal.setModifiedBy(user.getName() == null ? "Admin" : user.getName());
+        OperationResult result = jadwalTayangImpl.updateData(jadwal);
+        if (result.isSuccess()) {
+            msg.alertInfo("Status jadwal berhasil diperbarui.");
+            delaySearch();
+        } else {
+            msg.alertError("Gagal ubah status: " + result.getMessage());
+        }
+    }
 
-        String confirmMsg = jadwal.getStatus() == 1 ? "Nonaktifkan jadwal ini?" : "Aktifkan kembali jadwal ini?";
-        if (msg.alertConfirm(confirmMsg)) {
-            String usr = (user.getName() == null) ? "Admin" : user.getName();
-            OperationResult result = jadwalTayangImpl.deleteData(id, usr);
-            if (result.isSuccess()) {
-                msg.alertInfo(result.getMessage());
-                delaySearch();
-            } else {
-                msg.alertError(result.getMessage());
-            }
+    public void cleanup() {
+        if (searchExecutor != null && !searchExecutor.isShutdown()) {
+            searchExecutor.shutdown();
         }
     }
 
     @FXML
-    void handleFilterHapusClick(ActionEvent event) {
-        txtSearch.clear();
-        cmbFilterKategori.getSelectionModel().clearSelection();
-        cmbFilterStatus.getSelectionModel().select("Aktif");
-        cmbSortBerdasarkan.getSelectionModel().clearSelection();
-        cmbSortUrutan.getSelectionModel().select("Menurun");
-        delaySearch();
+    public void handleBtnClearClick(ActionEvent event) {
+        clearForm();
     }
 
-    public void refreshData() {
-        loadFilmComboBox();
-        loadStudioComboBox();
-        delaySearch();
-    }
 }

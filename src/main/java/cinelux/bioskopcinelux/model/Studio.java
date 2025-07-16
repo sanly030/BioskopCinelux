@@ -49,6 +49,15 @@ public class Studio {
         this.modifiedBy = modifiedBy;
     }
 
+    public Studio(int id, String nama, int kapasitas, int status, String createdBy, String modifiedBy) {
+        this.id = id;
+        this.nama = nama;
+        this.kapasitas = kapasitas;
+        this.status = status;
+        this.createdBy = createdBy;
+        this.modifiedBy = modifiedBy;
+    }
+
     // Getter dan Setter
     public Integer getId() {return id;}
     public void setId(Integer id) {this.id = id;}

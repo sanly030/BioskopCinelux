@@ -15,75 +15,62 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="922.0" prefWidth="1570.0" stylesheets="@../../style/bagan.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinelux.bioskopcinelux.controller.master.SettingCtrl">
+<AnchorPane prefHeight="922.0" prefWidth="1628.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinelux.bioskopcinelux.controller.master.SettingCtrl">
    <children>
-      <BorderPane prefHeight="922.0" prefWidth="1570.0">
+      <BorderPane prefHeight="923.0" prefWidth="1628.0">
          <right>
-            <AnchorPane prefHeight="922.0" prefWidth="448.0" style="-fx-background-color: #674636;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="919.0" prefWidth="385.0" style="-fx-background-color: #5d361d;" BorderPane.alignment="CENTER">
                <children>
-                  <VBox layoutX="27.0" layoutY="201.0" prefHeight="666.0" prefWidth="404.0" style="-fx-background-color: #F0EDE4;">
-                     <children>
-                        <AnchorPane prefHeight="666.0" prefWidth="404.0">
-                           <children>
-                              <Label layoutX="14.0" layoutY="17.0" text="ID Setting ">
-                                 <font>
-                                    <Font name="Segoe UI" size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label layoutX="14.0" layoutY="93.0" text="Name">
-                                 <font>
-                                    <Font name="Segoe UI" size="15.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="txtId" layoutX="14.0" layoutY="48.0" prefHeight="39.0" prefWidth="370.0" styleClass="textFieldinput" />
-                              <TextField fx:id="txtNama" layoutX="14.0" layoutY="124.0" prefHeight="39.0" prefWidth="370.0" styleClass="textFieldinput" />
-                              <Label layoutX="14.0" layoutY="176.0" text="Value">
-                                 <font>
-                                    <Font name="Segoe UI" size="15.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="txtValue" layoutX="14.0" layoutY="206.0" prefHeight="39.0" prefWidth="370.0" styleClass="textFieldinput" />
-                              <Label layoutX="16.0" layoutY="255.0" text="Kategori">
-                                 <font>
-                                    <Font name="Segoe UI" size="15.0" />
-                                 </font>
-                              </Label>
-                              <ComboBox fx:id="cmbKategori" layoutX="16.0" layoutY="290.0" prefHeight="40.0" prefWidth="367.0" styleClass="combo-box-input" stylesheets="@../../../../../../../../../BioskopCinelux/BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/style/bagan.css" />
-                              <Button fx:id="btnClear" layoutX="202.0" layoutY="493.0" mnemonicParsing="false" onAction="#handleBtnClearClick" prefHeight="34.0" prefWidth="119.0" style="-fx-background-color: #674636;" text="Clear" textFill="WHITE">
-                                 <font>
-                                    <Font name="Segoe UI Black" size="15.0" />
-                                 </font>
-                              </Button>
-                              <StackPane layoutX="34.0" layoutY="492.0" prefHeight="36.0" prefWidth="171.0">
-                                 <children>
-                                    <Button fx:id="btnUpdate" layoutX="36.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleBtnUpdateClick" prefHeight="34.0" prefWidth="119.0" style="-fx-background-color: #674636;" text="Update" textFill="WHITE">
-                                       <font>
-                                          <Font name="Segoe UI Black" size="15.0" />
-                                       </font>
-                                    </Button>
-                                    <Button fx:id="btnTambah" mnemonicParsing="false" onAction="#handleBtnInsertClick" prefHeight="34.0" prefWidth="119.0" style="-fx-background-color: #674636;" text="Add" textFill="WHITE">
-                                       <font>
-                                          <Font name="Segoe UI Black" size="15.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </StackPane>
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </VBox>
+                  <Label layoutX="14.0" layoutY="85.0" text="ID Setting " textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="169.0" text="Name" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtId" layoutX="14.0" layoutY="116.0" prefHeight="39.0" prefWidth="357.0" />
+                  <TextField fx:id="txtNama" layoutX="14.0" layoutY="198.0" prefHeight="39.0" prefWidth="357.0" />
+                  <Label layoutX="14.0" layoutY="251.0" text="Value" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtValue" layoutX="14.0" layoutY="279.0" prefHeight="39.0" prefWidth="357.0" />
+                  <Label layoutX="16.0" layoutY="331.0" text="Kategori" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cmbKategori" layoutX="16.0" layoutY="358.0" prefHeight="39.0" prefWidth="357.0" stylesheets="@../../style/comboBox.css" />
+                  <Button fx:id="btnClear" layoutX="54.0" layoutY="812.0" mnemonicParsing="false" onAction="#handleBtnClearClick" prefHeight="34.0" prefWidth="119.0" styleClass="clear-button" stylesheets="@../../style/button.css" text="Clear" textFill="#5d361d">
+                     <font>
+                        <Font name="Segoe UI Black" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnUpdate" layoutX="218.0" layoutY="811.0" mnemonicParsing="false" onAction="#handleBtnUpdateClick" prefHeight="34.0" prefWidth="119.0" styleClass="clear-button" stylesheets="@../../style/button.css" text="Update" textFill="#5d361d">
+                     <font>
+                        <Font name="Segoe UI Black" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnTambah" layoutX="218.0" layoutY="811.0" mnemonicParsing="false" onAction="#handleBtnInsertClick" prefHeight="34.0" prefWidth="119.0" styleClass="clear-button" stylesheets="@../../style/button.css" text="Add" textFill="#5d361d">
+                     <font>
+                        <Font name="Segoe UI Black" size="15.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
          </right>
          <center>
-            <AnchorPane prefHeight="922.0" prefWidth="1123.0" style="-fx-background-color: #F7EED3;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="922.0" prefWidth="1123.0" BorderPane.alignment="CENTER">
                <children>
-                  <TextField fx:id="txtSearch" layoutX="92.0" layoutY="51.0" prefHeight="42.0" prefWidth="510.0" promptText="Search" styleClass="textFieldinput" />
-                  <Button fx:id="btnFilter" layoutX="624.0" layoutY="50.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" style="-fx-background-color: #674636;" text="      Filter" textFill="WHITE">
+                  <TextField fx:id="txtSearch" layoutX="242.0" layoutY="46.0" prefHeight="42.0" prefWidth="494.0" promptText="Search" style="-fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0.2, 0, 4);" />
+                  <Button fx:id="btnFilter" layoutX="766.0" layoutY="45.0" mnemonicParsing="false" onAction="#handleBtnFilterClick" prefHeight="43.0" prefWidth="143.0" style="-fx-background-color: #5d361d; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0.2, 0, 4);" text="      Filter" textFill="WHITE">
                      <font>
                         <Font name="Segoe UI Black" size="18.0" />
                      </font>
@@ -91,12 +78,12 @@
                         <Tooltip text="Filter Data" />
                      </tooltip>
                   </Button>
-                  <ImageView fitHeight="31.0" fitWidth="34.0" layoutX="647.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="791.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../asset/image/icon_filter.png" />
                      </image>
                   </ImageView>
-                  <HBox layoutX="27.0" layoutY="123.0" prefHeight="66.0" prefWidth="938.0" style="-fx-background-color: #674636; -fx-background-radius: 5;">
+                  <HBox layoutX="27.0" layoutY="123.0" prefHeight="66.0" prefWidth="1185.0" style="-fx-background-color: #5d361d; -fx-background-radius: 10 10 0 0;">
                      <children>
                         <GridPane prefHeight="66.0" prefWidth="789.0">
                            <columnConstraints>
@@ -112,6 +99,9 @@
                                  <font>
                                     <Font name="Segoe UI Bold" size="15.0" />
                                  </font>
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
                               </Label>
                               <Label text="Value" textFill="WHITE" GridPane.columnIndex="1">
                                  <font>
@@ -122,6 +112,9 @@
                                  <font>
                                     <Font name="Segoe UI Bold" size="15.0" />
                                  </font>
+                                 <GridPane.margin>
+                                    <Insets left="17.0" />
+                                 </GridPane.margin>
                               </Label>
                            </children>
                            <HBox.margin>
@@ -130,40 +123,9 @@
                         </GridPane>
                      </children>
                   </HBox>
-                  <AnchorPane layoutX="500.0" layoutY="97.0" prefHeight="141.0" prefWidth="366.0" style="-fx-background-color: #F0EDE4;" visible="false">
-                     <children>
-                        <HBox layoutY="14.0" prefHeight="66.0" prefWidth="369.0">
-                           <children>
-                              <VBox prefHeight="66.0" prefWidth="191.0">
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="20.0" />
-                                 </HBox.margin>
-                                 <children>
-                                    <Label text="Kategori" />
-                                    <ComboBox fx:id="cmbFilterKategori" prefHeight="51.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-color: brown; -fx-border-width: 3;" />
-                                 </children>
-                              </VBox>
-                              <VBox prefHeight="66.0" prefWidth="178.0">
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="20.0" />
-                                 </HBox.margin>
-                                 <children>
-                                    <Label text="Status" />
-                                    <ComboBox fx:id="cmbFilterStatus" prefHeight="51.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-color: brown; -fx-border-width: 3;" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <Button fx:id="tnHapusFilter" layoutX="127.0" layoutY="95.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="115.0" style="-fx-background-color: #674636;" text="Hapus" textFill="WHITE">
-                           <font>
-                              <Font name="Segoe UI" size="14.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </AnchorPane>
-                  <ScrollPane layoutX="27.0" layoutY="203.0" prefHeight="677.0" prefWidth="980.0" stylesheets="@../../style/bagan.css">
+                  <ScrollPane layoutX="27.0" layoutY="189.0" prefHeight="693.0" prefWidth="1185.0" styleClass="custom-scroll" stylesheets="@../../style/scrollPane.css">
                      <content>
-                        <VBox fx:id="vbRowTable" prefHeight="78.0" prefWidth="914.0" style="-fx-background-color: transparent;" />
+                        <VBox fx:id="vbRowTable" prefHeight="56.0" prefWidth="1181.0" />
                      </content>
                   </ScrollPane>
                   <AnchorPane layoutX="748.0" layoutY="95.0" prefHeight="141.0" prefWidth="366.0" style="-fx-background-color: #F0EDE4;" visible="false">
@@ -197,6 +159,20 @@
                         </Button>
                      </children>
                   </AnchorPane>
+                  <VBox fx:id="vbFilter" layoutX="766.0" layoutY="84.0" prefHeight="107.0" prefWidth="143.0" style="-fx-background-color: #DADADAFF; -fx-background-radius: 0 0 10 10;" stylesheets="@../../style/comboBox.css" visible="false">
+                     <children>
+                        <ComboBox fx:id="cmbFilterStatus" prefHeight="36.0" prefWidth="176.0" promptText="Status">
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" top="6.0" />
+                           </VBox.margin>
+                        </ComboBox>
+                        <ComboBox fx:id="cmbFilterCategory" layoutX="20.0" layoutY="44.0" prefHeight="36.0" prefWidth="176.0" promptText="Category">
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" top="9.0" />
+                           </VBox.margin>
+                        </ComboBox>
+                     </children>
+                  </VBox>
                </children>
             </AnchorPane>
          </center>

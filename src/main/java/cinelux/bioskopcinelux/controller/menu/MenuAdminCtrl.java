@@ -60,6 +60,7 @@ public class MenuAdminCtrl implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadMaster("/cinelux/bioskopcinelux/view/DashboardAdmin/DashboardMenu.fxml");
         lbRole.setText("Admin");
+        updateTitleAndImage("Dashboard","Transact Overview","icon_dashboard.png");
         setActiveMenu(dashboardMenu);
 //        setProfile(user.getName(), "/projekkelompok4/manajementokofurniture_4niture/image/KaryawanImage/"+user.getPict());
         setProfile("User", "/cinelux/bioskopcinelux/asset/image/EmployeeImg/defaultprofile.png");
@@ -199,7 +200,7 @@ public class MenuAdminCtrl implements Initializable {
     // Chair Menu
     @FXML
     void handleChairClick(MouseEvent event) {
-        loadMaster("/cinelux/bioskopcinelux/view/DashboardAdmin/ChairMenu.fxml");
+        loadMaster("/cinelux/bioskopcinelux/view/DashboardAdmin/Kursi.fxml");
         setActiveMenu(chairMenu);
         updateTitleAndImage("Employee","Create, Read, Update, Delete Chair","icon_employee.png");
     }

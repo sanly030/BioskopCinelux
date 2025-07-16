@@ -17,9 +17,9 @@ public class StudioImpl implements StudioSrvc {
         return new Studio(
                 rs.getInt("std_id"),
                 rs.getString("std_nama"),
-                rs.getInt("std_baris"),
+                rs.getInt("std_baris"),     // <- penting!
                 rs.getInt("std_kolom"),
-                rs.getInt("std_kapasitas"),
+                rs.getInt("std_kapasitas"), // <- penting!
                 rs.getInt("std_status"),
                 rs.getString("std_created_by"),
                 rs.getString("std_modif_by")
@@ -121,13 +121,12 @@ public class StudioImpl implements StudioSrvc {
     @Override
     public OperationResult InsertStudioWithKursi(Studio studio) {
         try {
-            String sql = "{CALL sp_InsertStudioWithKursi(?, ?, ?, ?, ?)}";
+            String sql = "{CALL sp_InsertStudioWithKursi(?, ?, ?, ?)}";
             connect.pstat = connect.conn.prepareCall(sql);
             connect.pstat.setString(1, studio.getNama());
             connect.pstat.setInt(2, studio.getBaris());
             connect.pstat.setInt(3, studio.getKolom());
-            connect.pstat.setInt(4, studio.getKapasitas());
-            connect.pstat.setString(5, studio.getCreatedBy());
+            connect.pstat.setString(4, studio.getCreatedBy());
 
             connect.pstat.execute();
             return OperationResult.success("Studio berhasil ditambahkan dengan " +
@@ -146,16 +145,17 @@ public class StudioImpl implements StudioSrvc {
     @Override
     public OperationResult updateStudioWithKursi(Studio studio) {
         try {
-            String sql = "{CALL sp_UpdateStudioWithKursi(?, ?, ?, ?, ?, ?)}";
+            // HANYA 5 parameter: id, nama, baris, kolom, modifiedBy
+            String sql = "{CALL sp_UpdateStudioWithKursi(?, ?, ?, ?, ?)}";
             connect.pstat = connect.conn.prepareCall(sql);
             connect.pstat.setInt(1, studio.getId());
             connect.pstat.setString(2, studio.getNama());
-            connect.pstat.setInt(3, studio.getKapasitas());
-            connect.pstat.setInt(4, studio.getBaris());
-            connect.pstat.setInt(5, studio.getKolom());
-            connect.pstat.setString(6, studio.getModifiedBy());
+            connect.pstat.setInt(3, studio.getBaris());
+            connect.pstat.setInt(4, studio.getKolom());
+            connect.pstat.setString(5, studio.getModifiedBy());
 
             connect.pstat.execute();
+
             return OperationResult.success("Studio berhasil diperbarui dengan " +
                     (studio.getBaris() * studio.getKolom()) + " kursi.");
         } catch (SQLException e) {
@@ -168,6 +168,7 @@ public class StudioImpl implements StudioSrvc {
             }
         }
     }
+
     @Override
     public OperationResult deleteData(int id, String modifiedBy) {
         try {

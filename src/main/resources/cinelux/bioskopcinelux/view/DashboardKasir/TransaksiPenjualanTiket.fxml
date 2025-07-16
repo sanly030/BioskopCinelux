@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="892.0" prefWidth="1637.0" style="-fx-background-color: #FFFDD0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinelux.bioskopcinelux.controller.transaksi.PenjualanTiketCtrl">
+   <children>
+      <!-- Main Content Area -->
+      <ScrollPane fx:id="scrollCard" layoutX="62.0" layoutY="104.0" prefHeight="789.0" prefWidth="1064.0">
+         <content>
+            <FlowPane fx:id="flowTiketCard" prefHeight="37.0" prefWidth="1064.0" />
+         </content>
+      </ScrollPane>
+
+      <!-- Search Field -->
+      <TextField fx:id="tfSearch" layoutX="62.0" layoutY="28.0" prefHeight="57.0" prefWidth="420.0" promptText="Cari..." style="-fx-background-radius: 20;" />
+
+      <!-- Refresh Button -->
+      <Button fx:id="btnRefresh" layoutX="500.0" layoutY="28.0" prefHeight="57.0" prefWidth="100.0" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 20; -fx-font-weight: bold;" text="Refresh" />
+
+      <!-- Loading Indicator -->
+      <ProgressIndicator fx:id="loadingIndicator" layoutX="620.0" layoutY="40.0" prefHeight="30.0" prefWidth="30.0" visible="false" />
+
+      <!-- Status Label -->
+      <Label fx:id="statusLabel" layoutX="670.0" layoutY="45.0" prefHeight="20.0" prefWidth="300.0" text="" />
+
+      <!-- Cart Header -->
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#382416" height="83.0" layoutX="1202.0" stroke="BLACK" strokeType="INSIDE" width="435.0" />
+
+      <!-- Cart Title with Count -->
+      <HBox alignment="CENTER" layoutX="1202.0" layoutY="20.0" prefWidth="435.0" spacing="10.0">
+         <children>
+            <Text fill="WHITE" text="Keranjang">
+               <font>
+                  <Font name="Segoe UI Bold" size="25.0" />
+               </font>
+            </Text>
+            <Label fx:id="labelCartCount" style="-fx-background-color: #ff5722; -fx-text-fill: white; -fx-background-radius: 10; -fx-padding: 2 8; -fx-font-weight: bold;" text="0" />
+         </children>
+      </HBox>
+
+      <!-- Cart Content -->
+      <ScrollPane fx:id="scrollCart" fitToWidth="true" layoutX="1202.0" layoutY="83.0" prefHeight="488.0" prefWidth="435.0">
+         <content>
+            <VBox fx:id="cartContent" prefWidth="435.0" spacing="10.0" style="-fx-background-color: transparent;">
+               <padding>
+                  <Insets bottom="10" left="10" right="10" top="10" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
+
+      <!-- Payment Panel -->
+      <VBox layoutX="1202.0" layoutY="570.0" prefHeight="325.0" prefWidth="435.0" spacing="10.0" style="-fx-background-color: #382416;">
+         <padding>
+            <Insets bottom="20" left="20" right="20" top="20" />
+         </padding>
+         <children>
+            <!-- Subtotal -->
+            <HBox alignment="CENTER_RIGHT" spacing="10.0">
+               <children>
+                  <Label style="-fx-text-fill: white; -fx-font-weight: bold;" text="Subtotal:" />
+                  <Label fx:id="labelSubtotal" style="-fx-text-fill: white; -fx-font-weight: bold;" text="Rp 0" />
+               </children>
+            </HBox>
+
+            <!-- Discount -->
+            <HBox alignment="CENTER_RIGHT" spacing="10.0">
+               <children>
+                  <Label style="-fx-text-fill: white; -fx-font-weight: bold;" text="Diskon:" />
+                  <Label fx:id="labelDiskon" style="-fx-text-fill: white; -fx-font-weight: bold;" text="Rp 0" />
+               </children>
+            </HBox>
+
+            <!-- Total -->
+            <HBox alignment="CENTER_RIGHT" spacing="10.0">
+               <children>
+                  <Label style="-fx-text-fill: white; -fx-font-weight: bold;" text="Total Bayar:" />
+                  <Label fx:id="labelTotalBayar" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px;" text="Rp 0" />
+               </children>
+            </HBox>
+
+            <!-- Customer Name -->
+            <TextField fx:id="tfCustomerName" promptText="Nama Pelanggan" style="-fx-background-radius: 30; -fx-background-color: white; -fx-prompt-text-fill: #b0b0b0;" />
+
+            <!-- Promo Selection -->
+            <ComboBox fx:id="cbPromo" prefHeight="25.0" prefWidth="399.0" promptText="Pilih Promo" style="-fx-background-radius: 30; -fx-background-color: white;" />
+
+            <!-- Payment Method -->
+            <HBox alignment="CENTER_RIGHT" spacing="10.0">
+               <children>
+                  <Label style="-fx-text-fill: white; -fx-font-weight: bold;" text="Metode Pembayaran" />
+                  <ComboBox fx:id="cbMetodePembayaran" prefWidth="196.0" promptText="Cash" style="-fx-background-radius: 30; -fx-background-color: white;">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                        </FXCollections>
+                     </items>
+                  </ComboBox>
+               </children>
+            </HBox>
+
+            <!-- Cash Amount -->
+            <HBox alignment="CENTER_RIGHT" spacing="10.0">
+               <children>
+                  <Label style="-fx-text-fill: white; -fx-font-weight: bold;" text="Tunai" />
+                  <TextField fx:id="tfUangBayar" style="-fx-background-radius: 30; -fx-background-color: white;" />
+               </children>
+            </HBox>
+
+            <!-- Change Amount -->
+            <HBox alignment="CENTER_RIGHT" spacing="10.0">
+               <children>
+                  <Label style="-fx-text-fill: white; -fx-font-weight: bold;" text="Kembalian" />
+                  <TextField fx:id="tfKembalian" editable="false" style="-fx-background-radius: 30; -fx-background-color: white;" />
+               </children>
+            </HBox>
+
+            <!-- Payment Buttons -->
+            <HBox spacing="10.0">
+               <children>
+                  <Button fx:id="btnBayar" prefWidth="250.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-text-fill: #020A7A; -fx-font-weight: bold;" text="Bayar" />
+                  <Button fx:id="btnClearCart" prefWidth="140.0" style="-fx-background-color: #f44336; -fx-background-radius: 20; -fx-text-fill: white; -fx-font-weight: bold;" text="Kosongkan" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

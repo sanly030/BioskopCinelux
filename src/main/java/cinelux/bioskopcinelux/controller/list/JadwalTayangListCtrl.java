@@ -12,39 +12,30 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.InputStream;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class JadwalTayangListCtrl {
-
     @FXML
     private Tooltip Information;
-
     @FXML
     private Button btnDelete;
-
     @FXML
     private Button btnInformation;
-
     @FXML
-    private Button btnUpdate1;
-
+    private Button btnUpdate;
     @FXML
     private ImageView imgStatus;
-
     @FXML
     private Label lbFilm;
-
     @FXML
     private Label lbHari;
-
     @FXML
     private Label lbJamMulai;
-
     @FXML
     private Label lbJamSelesai;
-
     @FXML
     private Label lbStudio;
-
     @FXML
     private Tooltip toolTipDelete;
 
@@ -66,25 +57,23 @@ public class JadwalTayangListCtrl {
         }
 
         if (jadwal.getNamaStudio() != null) {
-            lbStudio.setText("Studio: " + jadwal.getNamaStudio().getNama());
+            lbStudio.setText(jadwal.getNamaStudio().getNama());
         } else {
-            lbStudio.setText("Studio: tidak tersedia");
+            lbStudio.setText("Tidak tersedia");
         }
 
-//        if (jadwal.getJamTayang() != null) {
-//            lbHari.setText("Jam Tayang: " + jadwal.getJamTayang());
-//        } else {
-//            lbHari.setText("Jam Tayang: tidak tersedia");
-//        }
-//
-//        if (jadwal.getTanggal() != null) {
-//            lbJamMulai.setText("Tanggal: " + jadwal.getTanggal());
-//        } else {
-//            lbJamMulai.setText("Tanggal: tidak tersedia");
-//        }
+        lbHari.setText((jadwal.getJenisHari()));
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        LocalTime jamMulai = jadwal.getJamMulai().toLocalTime();
+        LocalTime jamSelesai = jadwal.getJamSelesai().toLocalTime();
+
+        lbJamMulai.setText(jamMulai.format(formatter));
+        lbJamSelesai.setText(jamSelesai.format(formatter));
+
 
         int status = jadwal.getStatus();
-
         String imgPath;
         if (status == 1) {
             imgPath = "/cinelux/bioskopcinelux/asset/image/icon_remove.png";
@@ -95,6 +84,7 @@ public class JadwalTayangListCtrl {
         }
         setImage(imgPath);
     }
+
 
     private void setImage(String imagePath) {
         try (InputStream imageStream = getClass().getResourceAsStream(imagePath)) {

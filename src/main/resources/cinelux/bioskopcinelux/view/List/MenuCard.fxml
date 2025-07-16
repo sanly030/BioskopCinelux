@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinelux.bioskopcinelux.controller.list.MenuCardCtrl"
+            prefWidth="180" prefHeight="260"
+            style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 5); -fx-cursor: hand;">
+    <children>
+        <!-- Card Container -->
+        <VBox spacing="0" alignment="TOP_CENTER" prefWidth="180" prefHeight="260">
+            <!-- Image Container with rounded corners -->
+            <AnchorPane prefWidth="180" prefHeight="140" style="-fx-background-color: #f5f5f5; -fx-background-radius: 15 15 0 0;">
+                <children>
+                    <ImageView fx:id="imgMenu" fitHeight="130" fitWidth="160" preserveRatio="true"
+                               layoutX="10" layoutY="5"
+                               style="-fx-background-radius: 10;" />
+                    <!-- Overlay for better image visibility -->
+                    <Rectangle width="180" height="140" fill="transparent"
+                               style="-fx-stroke: rgba(56, 36, 22, 0.1); -fx-stroke-width: 1; -fx-arc-width: 15; -fx-arc-height: 15;" />
+                </children>
+            </AnchorPane>
+
+            <!-- Content Container -->
+            <VBox spacing="8" alignment="CENTER" prefWidth="180" prefHeight="120"
+                  style="-fx-background-color: white; -fx-background-radius: 0 0 15 15;">
+                <padding>
+                    <Insets top="15" right="15" bottom="15" left="15"/>
+                </padding>
+                <children>
+                    <!-- Product Name -->
+                    <Label fx:id="lblNama" wrapText="true" maxWidth="150" minHeight="35"
+                           style="-fx-font-family: 'Segoe UI Semibold'; -fx-font-size: 14px; -fx-text-fill: #2c2c2c; -fx-alignment: center; -fx-font-weight: bold;" />
+
+                    <!-- Price Container -->
+                    <HBox alignment="CENTER" spacing="5" style="-fx-background-color: #382416; -fx-background-radius: 20; -fx-padding: 8 15 8 15;">
+                        <children>
+                            <Label fx:id="lblHarga"
+                                   style="-fx-font-family: 'Segoe UI Bold'; -fx-font-size: 13px; -fx-text-fill: white; -fx-font-weight: bold;" />
+                        </children>
+                    </HBox>
+
+                    <!-- Add to Cart Indicator -->
+                    <Label text="Klik untuk tambah ke keranjang"
+                           style="-fx-font-family: 'Segoe UI'; -fx-font-size: 10px; -fx-text-fill: #888888; -fx-alignment: center;" />
+                </children>
+            </VBox>
+        </VBox>
+    </children>
+</AnchorPane>

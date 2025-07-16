@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="922.0" prefWidth="1570.0" stylesheets="@../../style/bagan.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinelux.bioskopcinelux.controller.master.MenuCtrl">
+<AnchorPane prefHeight="922.0" prefWidth="1570.0" stylesheets="@../../style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinelux.bioskopcinelux.controller.master.MenuCtrl">
    <children>
       <BorderPane prefHeight="922.0" prefWidth="1570.0">
          <right>
@@ -46,19 +46,19 @@
                                     <Font name="Segoe UI" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtHarga" layoutX="14.0" layoutY="206.0" prefHeight="39.0" prefWidth="370.0" styleClass="textFieldinput" />
+                              <TextField fx:id="txtHarga" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="206.0" prefHeight="39.0" prefWidth="370.0" styleClass="textFieldinput" />
                               <Label layoutX="17.0" layoutY="333.0" text="Kategori">
                                  <font>
                                     <Font name="Segoe UI" size="15.0" />
                                  </font>
                               </Label>
                               <ComboBox fx:id="cmbKategori" layoutX="15.0" layoutY="362.0" prefHeight="40.0" prefWidth="367.0" styleClass="combo-box-input" stylesheets="@../../../../../../../../../BioskopCinelux/BioskopCinelux/src/main/resources/kelompok5/bioskopcinelux/style/bagan.css" />
-                              <Button fx:id="btnClear" layoutX="202.0" layoutY="493.0" mnemonicParsing="false" onAction="#handleBtnClearClick" prefHeight="34.0" prefWidth="119.0" style="-fx-background-color: #674636;" text="Clear" textFill="WHITE">
+                              <Button fx:id="btnClear" layoutX="224.0" layoutY="603.0" mnemonicParsing="false" onAction="#handleBtnClearClick" prefHeight="34.0" prefWidth="119.0" style="-fx-background-color: #674636;" text="Clear" textFill="WHITE">
                                  <font>
                                     <Font name="Segoe UI Black" size="15.0" />
                                  </font>
                               </Button>
-                              <StackPane layoutX="34.0" layoutY="492.0" prefHeight="36.0" prefWidth="171.0">
+                              <StackPane layoutX="54.0" layoutY="602.0" prefHeight="36.0" prefWidth="171.0">
                                  <children>
                                     <Button fx:id="btnUpdate" layoutX="36.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleBtnUpdateClick" prefHeight="34.0" prefWidth="119.0" style="-fx-background-color: #674636;" text="Update" textFill="WHITE">
                                        <font>
@@ -77,7 +77,17 @@
                                     <Font name="Segoe UI" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtStok" layoutX="13.0" layoutY="284.0" prefHeight="39.0" prefWidth="370.0" styleClass="textFieldinput" />
+                              <TextField fx:id="txtStok" alignment="CENTER_RIGHT" layoutX="13.0" layoutY="284.0" prefHeight="39.0" prefWidth="370.0" styleClass="textFieldinput" />
+                              <VBox layoutX="226.0" layoutY="418.0" prefHeight="130.0" prefWidth="130.0" style="-fx-border-color: #674636; -fx-border-width: 1.5;">
+                                 <children>
+                                    <ImageView fx:id="imgMenu" fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </VBox>
+                              <Button fx:id="btnPilihGambar" layoutX="57.0" layoutY="469.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="129.0" style="-fx-background-color: #674636;" text="Pilih Gambar" textFill="WHITE">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="14.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </AnchorPane>
                      </children>
@@ -173,7 +183,7 @@
                         </Button>
                      </children>
                   </AnchorPane>
-                  <ScrollPane layoutX="27.0" layoutY="203.0" prefHeight="677.0" prefWidth="1032.0" stylesheets="@../../style/bagan.css">
+                  <ScrollPane layoutX="34.0" layoutY="205.0" prefHeight="677.0" prefWidth="1032.0" stylesheets="@../../style/style.css">
                      <content>
                         <VBox fx:id="vbRowTable" prefHeight="78.0" prefWidth="914.0" style="-fx-background-color: transparent;" />
                      </content>

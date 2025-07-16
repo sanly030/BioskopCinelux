@@ -1,0 +1,304 @@
+   <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F5F5DC;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane fx:id="mainBorderPane" prefHeight="1080.0" prefWidth="1920.0">
+         <top>
+            <AnchorPane prefHeight="166.0" prefWidth="1749.0" style="-fx-background-color: #5d361d;" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane layoutX="293.0" layoutY="-4.0" prefHeight="170.0" prefWidth="1627.0" style="-fx-background-color: #5d361d; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0.5, 3, 1);">
+                     <children>
+                        <Circle fx:id="imgEmployee" fill="#a8d7ff00" layoutX="1538.0" layoutY="88.0" radius="50.0" stroke="#edf4f2" strokeType="INSIDE" strokeWidth="3.0" />
+                        <Label fx:id="lbEmployeeName" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="1272.0" layoutY="73.0" prefHeight="24.0" prefWidth="200.0" text="Employee Name" textAlignment="RIGHT" textFill="#edf4f2">
+                           <font>
+                              <Font name="Segoe UI Bold" size="21.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lbRole" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="1392.0" layoutY="103.0" prefHeight="19.0" prefWidth="80.0" text="Role" textAlignment="RIGHT" textFill="#edf4f2">
+                           <font>
+                              <Font name="Segoe UI" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="headTittle" layoutX="157.0" layoutY="51.0" prefHeight="58.0" prefWidth="442.0" text="Tittle" textFill="#edf4f2">
+                           <font>
+                              <Font name="System Bold" size="40.0" />
+                           </font>
+                        </Label>
+                        <ImageView fx:id="imgTittle" fitHeight="78.0" fitWidth="77.0" layoutX="55.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" styleClass="menu-image">
+                           <image>
+                              <Image url="@../../image/LogoMaster/LogoDashboard.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="lbSubTittle" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="160.0" layoutY="107.0" prefHeight="23.0" prefWidth="568.0" text="Subtittle" textFill="#edf4f2">
+                           <font>
+                              <Font name="Segoe UI" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <ImageView fitHeight="136.0" fitWidth="270.0" layoutX="12.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../image/Icon/LogoCineLux.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <BorderPane.margin>
+                  <Insets top="-5.0" />
+               </BorderPane.margin>
+            </AnchorPane>
+         </top>
+         <left>
+            <AnchorPane prefHeight="841.0" prefWidth="293.0" style="-fx-background-color: #5d361d; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0.5, 3, 1);" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox layoutX="15.0" layoutY="41.0" prefHeight="567.0" prefWidth="278.0">
+                     <children>
+                        <HBox fx:id="dashboardMenu" alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="226.0" style="-fx-cursor: hand; -fx-background-radius: 10 0 0 10;" styleClass="menu-item" stylesheets="@../../style/sidebar.css">
+                           <children>
+                              <ImageView fitHeight="56.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="menu-image">
+                                 <image>
+                                    <Image url="@../../image/LogoMaster/LogoDashboard.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="lbDashboardMenu" alignment="TOP_LEFT" contentDisplay="CENTER" text="Dashboard" textFill="#edf4f2">
+                                 <font>
+                                    <Font name="Segoe UI" size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox fx:id="chariMenu" alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="72.0" prefWidth="226.0" style="-fx-cursor: hand; -fx-background-radius: 10 0 0 10;" styleClass="menu-item" stylesheets="@../../style/Sidebar.css">
+                           <children>
+                              <ImageView fitHeight="56.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="menu-image">
+                                 <image>
+                                    <Image url="@../../image/LogoMaster/LogoChair.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Chair" textFill="#edf4f2">
+                                 <font>
+                                    <Font name="Segoe UI" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox fx:id="employeeMenu" alignment="CENTER_LEFT" layoutX="10.0" layoutY="82.0" prefHeight="72.0" prefWidth="226.0" style="-fx-cursor: hand; -fx-background-radius: 10 0 0 10;" styleClass="menu-item" stylesheets="@../../style/Sidebar.css">
+                           <children>
+                              <ImageView fitHeight="56.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="menu-image">
+                                 <image>
+                                    <Image url="@../../image/LogoMaster/LogoEmployee.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Employee" textFill="#edf4f2">
+                                 <font>
+                                    <Font name="Segoe UI" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox fx:id="filmMenu" alignment="CENTER_LEFT" layoutX="10.0" layoutY="466.0" prefHeight="72.0" prefWidth="226.0" style="-fx-cursor: hand; -fx-background-radius: 10 0 0 10;" styleClass="menu-item" stylesheets="@../../style/Sidebar.css">
+                           <children>
+                              <ImageView fitHeight="56.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="menu-image">
+                                 <image>
+                                    <Image url="@../../image/LogoMaster/LogoFilm.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Film" textFill="#edf4f2">
+                                 <font>
+                                    <Font name="Segoe UI" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox fx:id="boardcastScheduleMenu" alignment="CENTER_LEFT" layoutX="10.0" layoutY="154.0" prefHeight="72.0" prefWidth="226.0" style="-fx-cursor: hand; -fx-background-radius: 10 0 0 10;" styleClass="menu-item" stylesheets="@../../style/Sidebar.css">
+                           <children>
+                              <ImageView fitHeight="56.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="menu-image">
+                                 <image>
+                                    <Image url="@../../image/LogoMaster/LogoBoardcastSchedule.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Boardcast Schedule" textFill="#edf4f2">
+                                 <font>
+                                    <Font name="Segoe UI" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox fx:id="menuMenu" alignment="CENTER_LEFT" layoutX="10.0" layoutY="226.0" prefHeight="72.0" prefWidth="226.0" style="-fx-cursor: hand; -fx-background-radius: 10 0 0 10;" styleClass="menu-item" stylesheets="@../../style/Sidebar.css">
+                           <children>
+                              <ImageView fitHeight="56.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="menu-image">
+                                 <image>
+                                    <Image url="@../../image/LogoMaster/LogoMenu.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Menu" textFill="#edf4f2">
+                                 <font>
+                                    <Font name="Segoe UI" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox fx:id="promoMenu" alignment="CENTER_LEFT" layoutX="10.0" layoutY="298.0" prefHeight="72.0" prefWidth="226.0" style="-fx-cursor: hand; -fx-background-radius: 10 0 0 10;" styleClass="menu-item" stylesheets="@../../style/Sidebar.css">
+                           <children>
+                              <ImageView fitHeight="56.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="menu-image">
+                                 <image>
+                                    <Image url="@../../image/LogoMaster/LogoPromo.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Promo" textFill="#edf4f2">
+                                 <font>
+                                    <Font name="Segoe UI" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox fx:id="studioMenu" alignment="CENTER_LEFT" layoutX="10.0" layoutY="370.0" prefHeight="72.0" prefWidth="226.0" style="-fx-cursor: hand; -fx-background-radius: 10 0 0 10;" styleClass="menu-item" stylesheets="@../../style/Sidebar.css">
+                           <children>
+                              <ImageView fitHeight="56.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="menu-image">
+                                 <image>
+                                    <Image url="@../../image/LogoMaster/LogoStudio.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Studio" textFill="#edf4f2">
+                                 <font>
+                                    <Font name="Segoe UI" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox fx:id="tableSettingMenu" alignment="CENTER_LEFT" layoutX="10.0" layoutY="448.0" prefHeight="72.0" prefWidth="226.0" style="-fx-cursor: hand; -fx-background-radius: 10 0 0 10;" styleClass="menu-item" stylesheets="@../../style/Sidebar.css">
+                           <children>
+                              <ImageView fitHeight="56.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="menu-image">
+                                 <image>
+                                    <Image url="@../../image/LogoMaster/LogoTableSetting.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Table Setting" textFill="#edf4f2">
+                                 <font>
+                                    <Font name="Segoe UI" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <HBox fx:id="exitMenu" alignment="CENTER_LEFT" layoutY="842.0" prefHeight="77.0" prefWidth="293.0" styleClass="exit-button" stylesheets="@../../style/sidebar.css">
+                     <children>
+                        <ImageView fitHeight="29.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0.5, 0, 0);">
+                           <image>
+                              <Image url="@../../image/Icon/IconExit.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="106.0" top="2.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="37.0" text="Exit" textFill="#5d361d">
+                           <font>
+                              <Font name="Segoe UI" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="6.0" top="5.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </AnchorPane>
+         </left>
+         <center>
+            <AnchorPane fx:id="mainAnchorPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </children>
+</StackPane>

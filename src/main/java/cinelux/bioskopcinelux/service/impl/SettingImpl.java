@@ -28,18 +28,24 @@ public class SettingImpl implements SettingSrvc {
         );
     }
 
-    @Override
+//    @Override
+//    public List<Setting> getAllData() {
+//        return getAllData(null, null, null, null, null);
+//    }
+
     public List<Setting> getAllData() {
-        return getAllData(null, null, null, null, null);
+        return getAllData(null, null, null);
     }
 
     @Override
-    public List<Setting> getAllData(String search, String kategori, Integer status, String urutan, String sortBy) {
+//    public List<Setting> getAllData(String search, String kategori, Integer status, String urutan, String sortBy) {
+    public List<Setting> getAllData(String search, String kategori, Integer status) {
         List<Setting> settings = new ArrayList<>();
         DBConnect db = new DBConnect();
 
         try {
-            String sql = "{CALL sp_GetListSetting(?, ?, ?, ?, ?)}"; // Panggil SP dengan 5 parameter
+//            String sql = "{CALL sp_GetListSetting(?, ?, ?, ?, ?)}"; // Panggil SP dengan 5 parameter
+            String sql = "{CALL sp_GetListSetting(?, ?, ?)}";
             db.pstat = db.conn.prepareCall(sql);
 
             // Parameter 1: search (nullable)
@@ -63,19 +69,19 @@ public class SettingImpl implements SettingSrvc {
                 db.pstat.setInt(3, status);
             }
 
-            // Parameter 4: urutan (nullable)
-            if (urutan == null || urutan.trim().isEmpty()) {
-                db.pstat.setNull(4, java.sql.Types.VARCHAR);
-            } else {
-                db.pstat.setString(4, urutan.trim());
-            }
+//            // Parameter 4: urutan (nullable)
+//            if (urutan == null || urutan.trim().isEmpty()) {
+//                db.pstat.setNull(4, java.sql.Types.VARCHAR);
+//            } else {
+//                db.pstat.setString(4, urutan.trim());
+//            }
 
-            // Parameter 5: sortBy (nullable)
-            if (sortBy == null || sortBy.trim().isEmpty()) {
-                db.pstat.setNull(5, java.sql.Types.VARCHAR);
-            } else {
-                db.pstat.setString(5, sortBy.trim());
-            }
+//            // Parameter 5: sortBy (nullable)
+//            if (sortBy == null || sortBy.trim().isEmpty()) {
+//                db.pstat.setNull(5, java.sql.Types.VARCHAR);
+//            } else {
+//                db.pstat.setString(5, sortBy.trim());
+//            }
 
             db.result = db.pstat.executeQuery();
             while (db.result.next()) {

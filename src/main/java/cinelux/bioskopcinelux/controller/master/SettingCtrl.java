@@ -22,9 +22,15 @@ import java.util.concurrent.*;
 
 public class SettingCtrl implements Initializable {
     @FXML private Button btnClear, btnTambah, btnUpdate, btnFilter, btnUrutkan;
-    @FXML private ComboBox<String> cmbKategori, cmbFilterKategori, cmbFilterStatus, cmbSortUrutan, cmbSortBerdasarkan;
+    @FXML private ComboBox<String> cmbKategori, cmbFilterKategori, cmbSortUrutan, cmbSortBerdasarkan;
     @FXML private TextField txtId, txtNama, txtSearch, txtValue;
     @FXML private VBox vbFilter, vbRowTable;
+
+    @FXML
+    private ComboBox<String> cmbFilterCategory;
+
+    @FXML
+    private ComboBox<String> cmbFilterStatus;
 
     private ScheduledExecutorService searchExecutor;
     private ScheduledFuture<?> searchTask;
@@ -52,77 +58,156 @@ public class SettingCtrl implements Initializable {
             return change; // Terima perubahan jika valid
         }));
 
-        txtSearch.textProperty().addListener((obs, oldVal, newVal) -> delaySearch());
-        cmbFilterStatus.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> delaySearch());
-        cmbFilterKategori.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> delaySearch());
-        cmbSortBerdasarkan.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> delaySearch());
-        cmbSortUrutan.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> delaySearch());
+//        txtSearch.textProperty().addListener((obs, oldVal, newVal) -> delaySearch());
+//        cmbFilterStatus.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> delaySearch());
+//        cmbFilterCategory.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> delaySearch());
+//        cmbSortBerdasarkan.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> delaySearch());
+//        cmbSortUrutan.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> delaySearch());
+//
+//        cmbKategori.getItems().addAll("Role", "Jenis Makanan");
+//
+//        cmbFilterStatus.getItems().addAll("Aktif", "Tidak Aktif");
+//        cmbFilterStatus.getSelectionModel().select("Aktif");
+//
+//        cmbSortBerdasarkan.getItems().addAll("Nama", "Kategori");
+//        cmbKategori.getSelectionModel().select("Nama");
+//
+//        cmbSortUrutan.getItems().addAll("Menaik", "Menurun");
+//        cmbSortUrutan.getSelectionModel().select("Menurun");
+//
+//
+//        cmbFilterKategori.getItems().addAll("None", "Jenis Makanan", "Role");
 
-        cmbKategori.getItems().addAll("Role", "Jenis Makanan");
+        txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            delaySearch();
+        });
+
+        cmbFilterStatus.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            delaySearch();
+        });
+
+        cmbFilterCategory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            delaySearch();
+        });
+
+        cmbKategori.getItems().addAll("Metode Pembayaran", "Role", "Jenis Makanan");
 
         cmbFilterStatus.getItems().addAll("Aktif", "Tidak Aktif");
-        cmbFilterStatus.getSelectionModel().select("Aktif");
+        cmbFilterStatus.getSelectionModel().selectFirst();
 
-        cmbSortBerdasarkan.getItems().addAll("Nama", "Kategori");
-        cmbKategori.getSelectionModel().select("Nama");
+        cmbFilterCategory.getItems().addAll("None","Metode Pembayaran", "Role", "Jenis Makanan");
+        cmbFilterCategory.getSelectionModel().selectFirst();
 
-        cmbSortUrutan.getItems().addAll("Menaik", "Menurun");
-        cmbSortUrutan.getSelectionModel().select("Menurun");
-
-
-        cmbFilterKategori.getItems().addAll("None", "Jenis Makanan", "Role");
-
-        loadDetailsToTable(null, null, null,null,null);
+        loadDetailsToTable(null, null, null);
     }
 
+
+//    private void delaySearch() {
+//        if (searchTask != null && !searchTask.isDone()) {
+//            searchTask.cancel(true);
+//        }
+//
+//        searchTask = searchExecutor.schedule(() -> javafx.application.Platform.runLater(() -> {
+//            String searchText = txtSearch.getText();
+//            String statusText = cmbFilterStatus.getSelectionModel().getSelectedItem();
+//            String categoryText = cmbFilterKategori.getSelectionModel().getSelectedItem();
+//            String urutan = cmbSortUrutan.getSelectionModel().getSelectedItem(); // Get the sorting order
+//            String sortBy = cmbSortBerdasarkan.getSelectionModel().getSelectedItem(); // Get the sorting criteria
+//
+//            int status = statusText.equalsIgnoreCase("Aktif") ? 1 : 0;
+//            String search = searchText.isEmpty() ? null : searchText;
+//            String kategori = (categoryText != null && !categoryText.equals("None")) ? categoryText : null;
+//
+//            loadDetailsToTable(search, kategori, status, urutan, sortBy);
+//        }), 0, TimeUnit.MILLISECONDS);
+//    }
 
     private void delaySearch() {
         if (searchTask != null && !searchTask.isDone()) {
             searchTask.cancel(true);
         }
 
-        searchTask = searchExecutor.schedule(() -> javafx.application.Platform.runLater(() -> {
-            String searchText = txtSearch.getText();
-            String statusText = cmbFilterStatus.getSelectionModel().getSelectedItem();
-            String categoryText = cmbFilterKategori.getSelectionModel().getSelectedItem();
-            String urutan = cmbSortUrutan.getSelectionModel().getSelectedItem(); // Get the sorting order
-            String sortBy = cmbSortBerdasarkan.getSelectionModel().getSelectedItem(); // Get the sorting criteria
+        searchTask = searchExecutor.schedule(() -> {
+            javafx.application.Platform.runLater(() -> {
+                String currentSearchText = txtSearch.getText();
+                Integer currentStatusFilter = null;
+                String selectedStatus = cmbFilterStatus.getSelectionModel().getSelectedItem();
+                String currentCategoryFilter = null;
 
-            int status = statusText.equalsIgnoreCase("Aktif") ? 1 : 0;
-            String search = searchText.isEmpty() ? null : searchText;
-            String kategori = (categoryText != null && !categoryText.equals("None")) ? categoryText : null;
+                if (selectedStatus != null) {
+                    currentStatusFilter = selectedStatus.equals("Aktif") ? 1 : 0;
+                }
 
-            loadDetailsToTable(search, kategori, status, urutan, sortBy);
-        }), 0, TimeUnit.MILLISECONDS);
+                if (cmbFilterCategory != null && cmbFilterCategory.getSelectionModel().getSelectedItem() != null && !cmbFilterCategory.getSelectionModel().getSelectedItem().equals("None")) {
+                    currentCategoryFilter = cmbFilterCategory.getSelectionModel().getSelectedItem();
+                }
+
+                loadDetailsToTable(
+                        currentSearchText.isEmpty() ? null : currentSearchText,
+                        currentCategoryFilter,
+                        currentStatusFilter
+                );
+            });
+        }, 100, TimeUnit.MILLISECONDS);
     }
 
 
-
-    private void loadDetailsToTable(String search, String kategori, Integer status, String urutan, String sortBy) {
+    private void loadDetailsToTable(String search, String category, Integer status) {
         vbRowTable.getChildren().clear();
-        List<Setting> dSettingList = settingImpl.getAllData(search, kategori, status, urutan, sortBy);
+        List<Setting> dtSettingList = settingImpl.getAllData(search, category, status);
 
-        if (dSettingList.isEmpty()) {
+        if (dtSettingList.isEmpty()) {
             vbRowTable.getChildren().add(new Label("Tidak ada data setting ditemukan."));
             return;
         }
 
-        String fxmlPath = "/cinelux/bioskopcinelux/view/List/SettingList.fxml";
+        String FxmlPath = "/cinelux/bioskopcinelux/view/List/SettingList.fxml";
 
-        for (Setting dSetting : dSettingList) {
+        for (Setting dtSetting : dtSettingList) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-                Parent node = loader.load();
-                SettingListCtrl listCtrl = loader.getController();
-                listCtrl.setData(dSetting);
-                listCtrl.setSettingsController(this);
-                vbRowTable.getChildren().add(node);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlPath));
+                Parent supplierRowNode = loader.load();
+
+                SettingListCtrl listController = loader.getController();
+                listController.setSettingsController(this);
+                listController.setData(dtSetting);
+
+                vbRowTable.getChildren().add(supplierRowNode);
+
             } catch (IOException e) {
-                System.err.println("Gagal memuat SettingList.fxml: " + e.getMessage());
+                System.err.println("Gagal memuat SettingRow.fxml atau mengatur data: " + e.getMessage());
                 e.printStackTrace();
             }
         }
     }
+
+
+
+//    private void loadDetailsToTable(String search, String kategori, Integer status, String urutan, String sortBy) {
+//        vbRowTable.getChildren().clear();
+//        List<Setting> dSettingList = settingImpl.getAllData(search, kategori, status, urutan, sortBy);
+//
+//        if (dSettingList.isEmpty()) {
+//            vbRowTable.getChildren().add(new Label("Tidak ada data setting ditemukan."));
+//            return;
+//        }
+//
+//        String fxmlPath = "/cinelux/bioskopcinelux/view/List/SettingList.fxml";
+//
+//        for (Setting dSetting : dSettingList) {
+//            try {
+//                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+//                Parent node = loader.load();
+//                SettingListCtrl listCtrl = loader.getController();
+//                listCtrl.setData(dSetting);
+//                listCtrl.setSettingsController(this);
+//                vbRowTable.getChildren().add(node);
+//            } catch (IOException e) {
+//                System.err.println("Gagal memuat SettingList.fxml: " + e.getMessage());
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
     public void toogleStatusSetting(int id) {
         Setting st = settingImpl.getById(id);
@@ -267,6 +352,11 @@ public class SettingCtrl implements Initializable {
     @FXML
     void handleBtnClearClick(ActionEvent event) {
         clearForm();
+    }
+
+    @FXML
+    void handleBtnFilterClick(ActionEvent event) {
+        vbFilter.setVisible(!vbFilter.isVisible());
     }
 
     @FXML
