@@ -10,7 +10,7 @@
    <children>
       <DatePicker fx:id="dateDari" layoutX="970.0" layoutY="71.0" prefHeight="34.0" prefWidth="186.0" />
       <DatePicker fx:id="dateSampai" layoutX="1187.0" layoutY="71.0" prefHeight="34.0" prefWidth="186.0" />
-      <Button fx:id="btnLaporan" layoutX="282.0" layoutY="797.0" mnemonicParsing="false" onAction="#onButtonLihatLaporan" prefHeight="44.0" prefWidth="142.0" style="-fx-background-color: #5d361d;" text="Print Laporan" textFill="WHITE">
+      <Button fx:id="btnLaporan" layoutX="282.0" layoutY="797.0" mnemonicParsing="false" onAction="#onButtonLihatLaporan" prefHeight="44.0" prefWidth="142.0" style="-fx-background-color: #5d361d; -fx-cursor: hand;" text="Print Laporan" textFill="WHITE">
          <font>
             <Font name="Segoe UI Bold" size="14.0" />
          </font>

@@ -210,6 +210,4 @@ public class MenuManagerCtrl implements Initializable {
         updateTitleAndImage("Report Transaction Tiket","Read Transaction Tiket","LogoTicketReport.png");
     }
 
-
-
 }

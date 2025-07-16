@@ -1,17 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="922.0" prefWidth="1570.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="919.0" prefWidth="1627.0" style="-fx-background-color: #FFFDD0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinelux.bioskopcinelux.controller.menu.DashboardAdminCtrl">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="874.0" layoutX="27.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" width="1510.0" />
-      <Label layoutX="621.0" layoutY="415.0" text="DASHBOARD ADMIN">
-         <font>
-            <Font name="System Bold" size="50.0" />
-         </font>
-      </Label>
+      <AnchorPane layoutX="150.0" layoutY="92.0" prefHeight="238.0" prefWidth="561.0" style="-fx-background-radius: 20; -fx-background-color: #5d361d; -fx-effect: #5d361d;">
+         <children>
+            <Label layoutX="193.0" layoutY="14.0" text="Active Promo" textFill="#fffdfd">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="106.0" fitWidth="98.0" layoutX="420.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/LogoMaster/LogoPromo.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lbPromo" layoutX="131.0" layoutY="141.0" text="Active Promo" textFill="#fffdfd">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="865.0" layoutY="92.0" prefHeight="238.0" prefWidth="561.0" style="-fx-background-radius: 20; -fx-background-color: #5d361d; -fx-effect: #5d361d;">
+         <children>
+            <Label layoutX="164.0" layoutY="14.0" text="Number of seats" textFill="#fffdfd">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="106.0" fitWidth="98.0" layoutX="409.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/LogoMaster/LogoChair.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lbKursiTersedia" layoutX="98.0" layoutY="141.0" text="Active Promo" textFill="#fffdfd">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="533.0" layoutY="418.0" prefHeight="238.0" prefWidth="561.0" style="-fx-background-radius: 20; -fx-background-color: #5d361d; -fx-effect: #5d361d;">
+         <children>
+            <Label layoutX="163.0" layoutY="14.0" text="Number of Films" textFill="#fffdfd">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="106.0" fitWidth="98.0" layoutX="392.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/LogoMaster/LogoFilm.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lbFilmTersedia" layoutX="116.0" layoutY="141.0" text="Active Promo" textFill="#fffdfd">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

@@ -55,6 +55,7 @@ public class MenuAdminCtrl implements Initializable {
     @FXML
     private Label lbRole, lbSubTittle;
 
+
     HBox activeMenu;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
