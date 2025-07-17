@@ -1,17 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="919.0" prefWidth="1627.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="919.0" prefWidth="1627.0" style="-fx-background-color: #FFFDD0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinelux.bioskopcinelux.controller.menu.DashboardKasirCtrl">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="874.0" layoutX="27.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" width="1510.0" />
-      <Label layoutX="621.0" layoutY="415.0" text="DASHBOARD KASIR">
-         <font>
-            <Font name="System Bold" size="50.0" />
-         </font>
-      </Label>
+      <AnchorPane layoutX="169.0" layoutY="73.0" prefHeight="238.0" prefWidth="561.0" style="-fx-background-radius: 20; -fx-background-color: #5d361d; -fx-effect: #5d361d;">
+         <children>
+            <Label layoutX="109.0" layoutY="29.0" text="Total Menu Sales Revenue" textFill="#fffdfd">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="106.0" fitWidth="98.0" layoutX="420.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/Icon/money.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lbPendapatan" layoutX="131.0" layoutY="141.0" text="Rp 0" textFill="#fffdfd">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <PieChart fx:id="pieChart" layoutX="168.0" layoutY="389.0" prefHeight="400.0" prefWidth="600.0" style="-fx-cursor: hand;" />
+      <AnchorPane layoutX="906.0" layoutY="73.0" prefHeight="238.0" prefWidth="561.0" style="-fx-background-radius: 20; -fx-background-color: #5d361d; -fx-effect: #5d361d;">
+         <children>
+            <Label layoutX="67.0" layoutY="33.0" text="Total Ticket Payment Revenue" textFill="#fffdfd">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="106.0" fitWidth="98.0" layoutX="420.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/Icon/money.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lbPendapatanTiket" layoutX="131.0" layoutY="141.0" text="Rp 0" textFill="#fffdfd">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <PieChart fx:id="pieChartTiket" layoutX="892.0" layoutY="389.0" prefHeight="400.0" prefWidth="600.0" style="-fx-cursor: hand;" />
    </children>
 </AnchorPane>

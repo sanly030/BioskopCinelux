@@ -1,17 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="919.0" prefWidth="1627.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="919.0" prefWidth="1627.0" style="-fx-background-color: #FFFDD0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinelux.bioskopcinelux.controller.menu.DashboardManagerCtrl">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="874.0" layoutX="27.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" width="1510.0" />
-      <Label layoutX="621.0" layoutY="415.0" text="DASHBOARD MANAGER">
-         <font>
-            <Font name="System Bold" size="50.0" />
-         </font>
-      </Label>
+      <AnchorPane layoutX="167.0" layoutY="171.0" prefHeight="238.0" prefWidth="561.0" style="-fx-background-radius: 20; -fx-background-color: #5d361d; -fx-effect: #5d361d;">
+         <children>
+            <Label layoutX="193.0" layoutY="22.0" text="Total Revenue" textFill="#fffdfd">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="106.0" fitWidth="98.0" layoutX="420.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/Icon/money.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lbPendapatan" layoutX="131.0" layoutY="141.0" text="Active Promo" textFill="#fffdfd">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="823.0" layoutY="171.0" prefHeight="238.0" prefWidth="561.0" style="-fx-background-radius: 20; -fx-background-color: #5d361d; -fx-effect: #5d361d;">
+         <children>
+            <Label layoutX="160.0" layoutY="23.0" text="Total Menu Sales" textFill="#fffdfd">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="106.0" fitWidth="98.0" layoutX="397.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/LogoMaster/LogoMenu.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lbPenjualanMenu" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="163.0" layoutY="141.0" text="Active Promo" textFill="#fffdfd">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="167.0" layoutY="474.0" prefHeight="238.0" prefWidth="561.0" style="-fx-background-radius: 20; -fx-background-color: #5d361d; -fx-effect: #5d361d;">
+         <children>
+            <Label layoutX="131.0" layoutY="22.0" prefHeight="37.0" prefWidth="313.0" text="Most ordered menu" textFill="#fffdfd">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="106.0" fitWidth="98.0" layoutX="420.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/Icon/burger.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lbMenu" layoutX="131.0" layoutY="141.0" text="Active Promo" textFill="#fffdfd">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="823.0" layoutY="474.0" prefHeight="238.0" prefWidth="561.0" style="-fx-background-radius: 20; -fx-background-color: #5d361d; -fx-effect: #5d361d;">
+         <children>
+            <Label layoutX="153.0" layoutY="25.0" prefHeight="37.0" prefWidth="256.0" text="Total Tickets Sold" textFill="#fffdfd">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="106.0" fitWidth="98.0" layoutX="401.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/Icon/ticket.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lbTotalTiket" alignment="TOP_CENTER" layoutX="176.0" layoutY="141.0" text="Active Promo" textFill="#fffdfd">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

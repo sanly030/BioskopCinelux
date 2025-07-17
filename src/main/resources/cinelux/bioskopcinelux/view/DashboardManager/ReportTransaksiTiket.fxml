@@ -1,18 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="919.0" prefWidth="1627.0" style="-fx-background-color: #FFFDD0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinelux.bioskopcinelux.controller.report.ReportTransaksiTiketCtrl">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="919.0" prefWidth="1627.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinelux.bioskopcinelux.controller.report.ReportTransaksiTiketCtrl">
    <children>
-      <DatePicker fx:id="dateDari" layoutX="970.0" layoutY="71.0" prefHeight="34.0" prefWidth="186.0" />
-      <DatePicker fx:id="dateSampai" layoutX="1187.0" layoutY="71.0" prefHeight="34.0" prefWidth="186.0" />
-      <Button fx:id="btnLaporan" layoutX="282.0" layoutY="797.0" mnemonicParsing="false" onAction="#onButtonLihatLaporan" prefHeight="44.0" prefWidth="142.0" style="-fx-background-color: #5d361d;" text="Print Laporan" textFill="WHITE">
-         <font>
-            <Font name="Segoe UI Bold" size="14.0" />
-         </font>
-      </Button>
+      <VBox>
+         <children>
+            <HBox alignment="CENTER" spacing="10.0">
+               <children>
+                  <Label text="LAPORAN PENJUALAN TIKET">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </HBox>
+            <VBox spacing="15.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="20.0">
+                     <children>
+                        <Label text="Filter Film:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="comboBoxFilm" prefWidth="200.0" promptText="Pilih Film..." />
+                        <Label text="Dari Tanggal:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="dateDari" prefWidth="150.0" promptText="Pilih tanggal..." />
+                        <Label text="Sampai Tanggal:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="dateSampai" prefWidth="150.0" promptText="Pilih tanggal..." />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" spacing="15.0">
+                     <children>
+                        <Button fx:id="btnFilter" mnemonicParsing="false" onAction="#handleFilterData" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Filter Data">
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnClear" mnemonicParsing="false" onAction="#handleClearFilter" style="-fx-background-color: #FF9800; -fx-text-fill: white;" text="Clear Filter">
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                        </Button>
+                        <Separator orientation="VERTICAL" prefHeight="25.0" />
+                        <Button fx:id="btnLaporan" mnemonicParsing="false" onAction="#onButtonLihatLaporan" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Print Laporan">
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+               </padding>
+            </VBox>
+            <Separator />
+            <VBox VBox.vgrow="ALWAYS">
+               <children>
+                  <Label text="Grafik Penjualan Tiket">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <BarChart fx:id="barChartPenjualan" animated="true" legendVisible="true" prefHeight="400.0" title="Penjualan Tiket Berdasarkan Film">
+                     <xAxis>
+                        <CategoryAxis label="Film" side="BOTTOM" fx:id="xAxis" />
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis fx:id="yAxis" label="Jumlah Tiket Terjual" side="LEFT" />
+                     </yAxis>
+                  </BarChart>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+            <HBox alignment="CENTER_LEFT" style="-fx-background-color: #E0E0E0;">
+               <children>
+                  <Label fx:id="labelStatus" text="Status: Siap untuk menampilkan data">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
    </children>
-</AnchorPane>
+</StackPane>
