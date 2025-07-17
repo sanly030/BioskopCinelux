@@ -381,64 +381,6 @@ public class PenjualanMenuCtrl {
         }
     }
 
-    private void addCardAnimations(Node card, Menu menu) {
-        // Hover effect
-        card.setOnMouseEntered(event -> {
-            ScaleTransition st = new ScaleTransition(Duration.millis(200), card);
-            st.setToX(1.05);
-            st.setToY(1.05);
-            st.play();
-        });
-
-        card.setOnMouseExited(event -> {
-            ScaleTransition st = new ScaleTransition(Duration.millis(200), card);
-            st.setToX(1.0);
-            st.setToY(1.0);
-            st.play();
-        });
-
-        // Click effect
-        card.setOnMouseClicked(event -> {
-            ScaleTransition st = new ScaleTransition(Duration.millis(100), card);
-            st.setToX(0.95);
-            st.setToY(0.95);
-            st.setOnFinished(e -> {
-                ScaleTransition st2 = new ScaleTransition(Duration.millis(100), card);
-                st2.setToX(1.0);
-                st2.setToY(1.0);
-                st2.play();
-            });
-            st.play();
-
-            addToCart(menu);
-        });
-    }
-
-    private void addToCart(Menu menu) {
-        if (menu != null) {
-            // Check stock availability
-            int currentQtyInCart = cart.getOrDefault(menu.getId(), 0);
-            if (currentQtyInCart >= menu.getStok()) {
-                showAlert("Stok Habis", "Stok " + menu.getNama() + " tidak mencukupi!", Alert.AlertType.WARNING);
-                return;
-            }
-
-            cart.put(menu.getId(), currentQtyInCart + 1);
-            updateCartDisplay();
-            showAddToCartAnimation();
-        }
-    }
-
-    private void showAddToCartAnimation() {
-        // Simple fade effect on cart
-        if (CardContent != null) {
-            FadeTransition ft = new FadeTransition(Duration.millis(300), CardContent);
-            ft.setFromValue(0.7);
-            ft.setToValue(1.0);
-            ft.play();
-        }
-    }
-
     private void updateCartDisplay() {
         if (CardContent != null) {
             CardContent.getChildren().clear();
@@ -490,53 +432,6 @@ public class PenjualanMenuCtrl {
         }
     }
 
-    private VBox createEnhancedCartItem(Menu menu, int quantity, double subtotal) {
-        VBox cartItem = new VBox(8);
-        cartItem.setStyle("-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 12; -fx-padding: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);");
-
-        // Item name and price
-        HBox headerBox = new HBox(10);
-        headerBox.setAlignment(Pos.CENTER_LEFT);
-
-        Label nameLabel = new Label(menu.getNama());
-        nameLabel.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;");
-
-        Region spacer = new Region();
-        HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
-
-        Label priceLabel = new Label(rupiahFormat.format(menu.getHarga()));
-        priceLabel.setStyle("-fx-text-fill: #FFD700; -fx-font-weight: bold; -fx-font-size: 12px;");
-
-        headerBox.getChildren().addAll(nameLabel, spacer, priceLabel);
-
-        // Quantity controls
-        HBox controlsBox = new HBox(10);
-        controlsBox.setAlignment(Pos.CENTER_LEFT);
-
-        Button minusBtn = new Button("−");
-        minusBtn.setStyle("-fx-background-color: #FF6B6B; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 15; -fx-min-width: 30; -fx-min-height: 30; -fx-cursor: hand;");
-        minusBtn.setOnAction(e -> removeFromCart(menu.getId()));
-
-        Label qtyLabel = new Label("Qty: " + quantity);
-        qtyLabel.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;");
-
-        Button plusBtn = new Button("+");
-        plusBtn.setStyle("-fx-background-color: #4ECDC4; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 15; -fx-min-width: 30; -fx-min-height: 30; -fx-cursor: hand;");
-        plusBtn.setOnAction(e -> addToCart(menu));
-
-        Region spacer2 = new Region();
-        HBox.setHgrow(spacer2, javafx.scene.layout.Priority.ALWAYS);
-
-        Label subtotalLabel = new Label("= " + rupiahFormat.format(subtotal));
-        subtotalLabel.setStyle("-fx-text-fill: #90EE90; -fx-font-weight: bold; -fx-font-size: 14px;");
-
-        controlsBox.getChildren().addAll(minusBtn, qtyLabel, plusBtn, spacer2, subtotalLabel);
-
-        cartItem.getChildren().addAll(headerBox, controlsBox);
-
-        return cartItem;
-    }
-
     private void updateEmptyCartVisibility() {
         if (lblEmptyCart != null) {
             lblEmptyCart.setVisible(cart.isEmpty());
@@ -554,6 +449,7 @@ public class PenjualanMenuCtrl {
             updateCartDisplay();
         }
     }
+
 
     // FIXED: Apply discount method with proper handling for different promo types
     private void applyDiscount() {
@@ -618,7 +514,6 @@ public class PenjualanMenuCtrl {
             }
         }
     }
-
     private void calculateKembalian() {
         if (tfUangBayar != null && tfKembalian != null && tfUangBayar.isVisible()) {
             try {
@@ -806,6 +701,111 @@ public class PenjualanMenuCtrl {
 
         // PERBAIKAN: Refresh menu items to update stock display
         loadAndDisplayMenuItems(); // GANTI DARI loadMenuItems()
+    }
+
+    private void addCardAnimations(Node card, Menu menu) {
+        // Hover effect
+        card.setOnMouseEntered(event -> {
+            ScaleTransition st = new ScaleTransition(Duration.millis(200), card);
+            st.setToX(1.05);
+            st.setToY(1.05);
+            st.play();
+        });
+
+        card.setOnMouseExited(event -> {
+            ScaleTransition st = new ScaleTransition(Duration.millis(200), card);
+            st.setToX(1.0);
+            st.setToY(1.0);
+            st.play();
+        });
+
+        // Click effect
+        card.setOnMouseClicked(event -> {
+            ScaleTransition st = new ScaleTransition(Duration.millis(100), card);
+            st.setToX(0.95);
+            st.setToY(0.95);
+            st.setOnFinished(e -> {
+                ScaleTransition st2 = new ScaleTransition(Duration.millis(100), card);
+                st2.setToX(1.0);
+                st2.setToY(1.0);
+                st2.play();
+            });
+            st.play();
+
+            addToCart(menu);
+        });
+    }
+
+    private void addToCart(Menu menu) {
+        if (menu != null) {
+            // Check stock availability
+            int currentQtyInCart = cart.getOrDefault(menu.getId(), 0);
+            if (currentQtyInCart >= menu.getStok()) {
+                showAlert("Stok Habis", "Stok " + menu.getNama() + " tidak mencukupi!", Alert.AlertType.WARNING);
+                return;
+            }
+
+            cart.put(menu.getId(), currentQtyInCart + 1);
+            updateCartDisplay();
+            showAddToCartAnimation();
+        }
+    }
+
+    private void showAddToCartAnimation() {
+        // Simple fade effect on cart
+        if (CardContent != null) {
+            FadeTransition ft = new FadeTransition(Duration.millis(300), CardContent);
+            ft.setFromValue(0.7);
+            ft.setToValue(1.0);
+            ft.play();
+        }
+    }
+
+    private VBox createEnhancedCartItem(Menu menu, int quantity, double subtotal) {
+        VBox cartItem = new VBox(8);
+        cartItem.setStyle("-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 12; -fx-padding: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);");
+
+        // Item name and price
+        HBox headerBox = new HBox(10);
+        headerBox.setAlignment(Pos.CENTER_LEFT);
+
+        Label nameLabel = new Label(menu.getNama());
+        nameLabel.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;");
+
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
+
+        Label priceLabel = new Label(rupiahFormat.format(menu.getHarga()));
+        priceLabel.setStyle("-fx-text-fill: #FFD700; -fx-font-weight: bold; -fx-font-size: 12px;");
+
+        headerBox.getChildren().addAll(nameLabel, spacer, priceLabel);
+
+        // Quantity controls
+        HBox controlsBox = new HBox(10);
+        controlsBox.setAlignment(Pos.CENTER_LEFT);
+
+        Button minusBtn = new Button("−");
+        minusBtn.setStyle("-fx-background-color: #FF6B6B; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 15; -fx-min-width: 30; -fx-min-height: 30; -fx-cursor: hand;");
+        minusBtn.setOnAction(e -> removeFromCart(menu.getId()));
+
+        Label qtyLabel = new Label("Qty: " + quantity);
+        qtyLabel.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;");
+
+        Button plusBtn = new Button("+");
+        plusBtn.setStyle("-fx-background-color: #4ECDC4; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 15; -fx-min-width: 30; -fx-min-height: 30; -fx-cursor: hand;");
+        plusBtn.setOnAction(e -> addToCart(menu));
+
+        Region spacer2 = new Region();
+        HBox.setHgrow(spacer2, javafx.scene.layout.Priority.ALWAYS);
+
+        Label subtotalLabel = new Label("= " + rupiahFormat.format(subtotal));
+        subtotalLabel.setStyle("-fx-text-fill: #90EE90; -fx-font-weight: bold; -fx-font-size: 14px;");
+
+        controlsBox.getChildren().addAll(minusBtn, qtyLabel, plusBtn, spacer2, subtotalLabel);
+
+        cartItem.getChildren().addAll(headerBox, controlsBox);
+
+        return cartItem;
     }
 
     private void showAlert(String title, String message, Alert.AlertType type) {
